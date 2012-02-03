@@ -36,20 +36,36 @@ class GithubFactory {
      * @return GithubUser
      * @see http://developer.github.com/v3/users/
      */
-    public function createUser(array $userData) {
+    public function createPagesUser(array $userData) {
         $parsedData = array();
         if (\array_key_exists('message', $userData) && $userData['message'] === 'Not Found') {
-            $parsedData['id'] = 0;
+            $parsedData['userId'] = 0;
             $parsedData['userName'] = '';
-            $parsedData['pagesRepo'] = '';
-            $parsedData['pagesRepoUrl'] = '';
+            $parsedData['repoName'] = '';
+            $parsedData['repoUrl'] = '';
         } else {
-            $parsedData['id'] = $userData['id'];
+            $parsedData['userId'] = $userData['id'];
             $userName = $parsedData['userName'] = $userData['login'];
-            $parsedData['pagesRepo'] = $userName . '.github.com';
-            $parsedData['pagesRepoUrl'] = $this->protocol . 'github.com/' . $userName . '/' . $userName . '.github.com';
+            $parsedData['repoName'] = $userName . '.github.com';
+            $parsedData['repoUrl'] = $this->protocol . 'github.com/' . $userName . '/' . $userName . '.github.com';
         }
-        return new GithubUser($parsedData);
+        return new GithubPagesUser($parsedData);
     }
+
+    public function createPost(array $info) {
+        $data = array();
+        if (\array_key_exists('type', $info) && $info['type'] === 'blob') {
+            $data['path'] = $info['path'];
+            $data['sha'] = $info['sha'];
+            $data['apiUrl'] = $info['url'];
+        } else {
+            $data['path'] = '';
+            $data['sha'] = 0;
+            $data['apiUrl'] = '';
+        }
+        return new GithubPost($data);
+    }
+
+
 
 }
