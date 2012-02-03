@@ -5,8 +5,7 @@
  * for a user.
  *
  * @author Charles Sprayberry cspray at gmail.com
- * @uses DomainException
- * @see GithubFactory
+ * @uses Entity
  */
 class GithubPagesUser extends Entity {
 
