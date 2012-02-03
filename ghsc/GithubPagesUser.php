@@ -14,14 +14,36 @@ class GithubPagesUser extends Entity {
      *
      * @var $id int
      */
-    protected $userId;
+    protected $id;
 
     /**
      * @brief Returned in the 'login' field of the JSON response
      *
      * @var $userName string
      */
-    protected $userName;
+    protected $name;
+
+    /**
+     * @brief The complete HTTPS URL to query the github API for more information about
+     * the user.
+     *
+     * @var $apiUrl string
+     */
+    protected $apiUrl;
+
+    /**
+     * @brief The complete HTTP URL for the github pages account for this user
+     *
+     * @var $websiteUrl string
+     */
+    protected $websiteUrl;
+
+    /**
+     * @brief The complete path to the user's gravatar
+     *
+     * @var $gravatarUrl string
+     */
+    protected $gravatarUrl;
 
     /**
      * @brief The name of the repo holding github:pages files
@@ -31,24 +53,18 @@ class GithubPagesUser extends Entity {
     protected $repoName;
 
     /**
-     * @brief This is not returned by the response but is created from the results
-     * of the response.
-     *
-     * @var $pagesRepoUrl
-     */
-    protected $repoUrl;
-
-    /**
      * @brief The keys for the array should match up with the properties stored
      * for the user.
      *
      * @param $userData An array of data to store for this user
      */
     public function __construct(array $userData) {
-        $this->userId = $userData['userId'];
-        $this->userName = $userData['userName'];
+        $this->id = $userData['id'];
+        $this->name = $userData['name'];
         $this->repoName = $userData['repoName'];
-        $this->repoUrl = $userData['repoUrl'];
+        $this->apiUrl = $userData['apiUrl'];
+        $this->gravatarUrl = $userData['gravatarUrl'];
+        $this->websiteUrl = $userData['websiteUrl'];
     }
 
 }
