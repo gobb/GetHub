@@ -10,6 +10,22 @@
 class GithubPagesUser extends Entity {
 
     /**
+     * @brief An associative array holding values to be used for a 'NullObject' or
+     * if a particular property is not set in the passed constructor array
+     *
+     * @property $defaults array
+     */
+    protected $defaults = array(
+        'id' => 0,
+        'name' => 'github',
+        'apiUrl' => 'https://api.github.com',
+        'blogUrl' => 'https://github.com/blog',
+        'profileUrl' => 'https://github.com/github',
+        'gravatarUrl' => 'http://www.gravatar/avatar/',
+        'repoName' => ''
+    );
+
+    /**
      * @brief Returned in the 'id' field of the JSON response
      *
      * @var $id int
@@ -32,11 +48,20 @@ class GithubPagesUser extends Entity {
     protected $apiUrl;
 
     /**
-     * @brief The complete HTTP URL for the github pages account for this user
+     * @brief The complete HTTP URL for the github pages account for this user OR
+     * whatever is in their github profile under blog; this is expected to be the
+     * URL to their github:pages blog of course.
      *
-     * @var $websiteUrl string
+     * @var $blogUrl string
      */
-    protected $websiteUrl;
+    protected $blogUrl;
+
+    /**
+     * @brief The complete
+     *
+     * @property $profileUrl string
+     */
+    protected $profileUrl;
 
     /**
      * @brief The complete path to the user's gravatar
