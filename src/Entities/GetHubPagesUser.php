@@ -13,7 +13,7 @@
  * @author Charles Sprayberry cspray at gmail.com
  * @uses Entity
  */
-class GithubPagesUser extends Entity {
+class GetHubPagesUser extends GetHubEntity {
 
     /**
      * @brief An associative array holding values to be used for a 'NullObject' or

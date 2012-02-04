@@ -6,7 +6,16 @@
  * @author Charles Sprayberry cspray at gmail.com
  * @uses Entity
  */
-class GithubPagesRepo extends Entity {
+class GetHubPagesRepo extends GetHubEntity {
+
+    protected $defaults = array(
+        'name' => '',
+        'owner' => null,
+        'apiUrl' => 'https://api.github.com',
+        'websiteUrl' => 'http://github.com',
+        'isPrivate' => false,
+        'masterBranch' => GetHubPagesRepo::DEFAULT_MASTER_BRANCH
+    );
 
     /**
      * @brief If there are no branches in a repository the github API returns null,
@@ -23,6 +32,13 @@ class GithubPagesRepo extends Entity {
      * @property $name string
      */
     protected $name;
+
+    /**
+     * @brief Will always be a GetHubPagesUser; may be a null object though
+     *
+     * @property $owner GetHubPagesUser
+     */
+    protected $owner;
 
     /**
      * @brief The complete HTTPS URL to query the github API for more information
@@ -50,5 +66,16 @@ class GithubPagesRepo extends Entity {
      * @var $masterBranch string
      */
     protected $masterBranch;
+
+    /**
+     * @brief We are overriding this class so that we can ensure an object is
+     * always returned from GithubPagesRepo::owner...it may just be a NullObject
+     *
+     * @param $data An array of data to store in this entity
+     */
+    public function __construct(array $data) {
+        $this->defaults['owner'] = new GetHubPagesUser(array());
+        parent::__construct($data);
+    }
 
 }

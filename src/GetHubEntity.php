@@ -15,7 +15,7 @@
  * @author Charles Sprayberry cspray at gmail.com
  * @uses DomainException
  */
-abstract class Entity {
+abstract class GetHubEntity {
 
     /**
      * @brief An array of properties allowed to have variables set during construction
