@@ -7,9 +7,10 @@ function autoloader($className) {
     $classPaths = array(
         'Entity' => $dir . '/Entity.php',
         'GithubApi' => $dir . '/GithubApi.php',
-        'GithubFactory' => $dir . '/GithubFactory.php',
+        'GithubEntityFactory' => $dir . '/Entities/GithubEntityFactory.php',
         'GithubPagesUser' => $dir . '/Entities/GithubPagesUser.php',
-        'GithubPagesRepo' => $dir . '/Entities/GithubPagesRepo.php'
+        'GithubPagesRepo' => $dir . '/Entities/GithubPagesRepo.php',
+        'GithubRepoTree' => $dir . '/Entities/GithubRepoTree.php'
     );
 
     if (array_key_exists($className, $classPaths)) {
