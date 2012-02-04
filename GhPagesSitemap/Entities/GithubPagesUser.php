@@ -52,19 +52,4 @@ class GithubPagesUser extends Entity {
      */
     protected $repoName;
 
-    /**
-     * @brief The keys for the array should match up with the properties stored
-     * for the user.
-     *
-     * @param $userData An array of data to store for this user
-     */
-    public function __construct(array $userData) {
-        $this->id = $userData['id'];
-        $this->name = $userData['name'];
-        $this->repoName = $userData['repoName'];
-        $this->apiUrl = $userData['apiUrl'];
-        $this->gravatarUrl = $userData['gravatarUrl'];
-        $this->websiteUrl = $userData['websiteUrl'];
-    }
-
 }
