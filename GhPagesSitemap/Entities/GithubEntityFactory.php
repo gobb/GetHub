@@ -46,9 +46,14 @@ class GithubEntityFactory {
     );
 
     /**
+     * @brief Throws an exception if the \a $entityName you requested has not
+     * been appropriately mapped in this factory by creating a getEntityNameData()
+     * method and returning an appropriate associative array from that method.
+     *
      * @param $entityName String representing the domain object to create
      * @param $data an associative array with keys matching those in \a $this->defaults
      * @return An Entity object
+     * @throws InvalidArgumentException
      */
     public function createGithubEntityObject($entityName, array $data) {
         $method = 'get' . $entityName . 'Data';
@@ -86,8 +91,7 @@ class GithubEntityFactory {
             return $return;
         }
         $return = $this->getMappedData('pagesRepoMap', $data);
-        $owner = (isset($data['owner']) && is_object($data['owner'])) ? $data['owner'] : new stdClass();
-        $return['owner'] = $owner;
+        $return['owner'] = (isset($data['owner']) && is_object($data['owner'])) ? $data['owner'] : new stdClass();
         if (is_null($return['masterBranch'])) {
             $return['masterBranch'] = GithubPagesRepo::DEFAULT_MASTER_BRANCH;
         }
