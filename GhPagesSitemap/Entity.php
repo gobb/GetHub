@@ -3,12 +3,23 @@
 /**
  * @brief An abstract class used as the superclass for domain objects.
  *
+ * @details
+ * tl;dr
+ * THIS OBJECT IS READ-ONLY!
+ *
+ * Please note that this class will only allow properties defined in the class to
+ * be set at construction time.  You may not 'overload' properties onto this object,
+ * you may not set an existing property to anything after construction, you may not
+ * remove a value from this object.
+ *
  * @author Charles Sprayberry cspray at gmail.com
+ * @uses DomainException
  */
 abstract class Entity {
 
     /**
-     * @brief An array of variables stored in the entity
+     * @brief An array of properties allowed to have variables set during construction
+     * and are allowed to retrieve from.
      *
      * @var $objectVars array
      */
@@ -20,19 +31,30 @@ abstract class Entity {
      *
      * @param $data An array of data
      */
-    abstract public function __construct(array $data);
+    public function __construct(array $data) {
+        $this->setProperties($data);
+    }
+
+    /**
+     * @param $data associative array with key matching property to set the value to
+     */
+    protected function setProperties(array $data) {
+        $this->objectVars = get_object_vars($this);
+        unset($this->objectVars['objectVars']);
+        foreach ($this->objectVars as $property => $value) {
+            if (array_key_exists($property, $data)) {
+                $this->$property = $data[$property];
+            }
+        }
+    }
 
     /**
      * @param $property string property to retrieve the value of
      * @return mixed; the value stored in \a $property or null
      */
     public function __get($property) {
-        if (!$this->objectVars) {
-            $this->objectVars = \get_object_vars($this);
-            unset($this->objectVars['objectVars']);
-        }
-        if (\array_key_exists($property, $this->objectVars)) {
-            return $this->objectVars[$property];
+        if (array_key_exists($property, $this->objectVars)) {
+            return $this->$property;
         }
         return null;
     }
@@ -51,7 +73,7 @@ abstract class Entity {
      * @throws DomainException You may not set the values of github user data
      */
     public function __set($property, $value) {
-        throw new \DomainException('Properties for this object may not be set.');
+        throw new DomainException('Properties for this object may not be set.');
     }
 
     /**
@@ -59,7 +81,7 @@ abstract class Entity {
      * @throws DomainException You may not unset the values of github user data
      */
     public function __unset($property) {
-        throw new \DomainException('Properties may not be unset for this object.');
+        throw new DomainException('Properties may not be unset for this object.');
     }
 
 }
