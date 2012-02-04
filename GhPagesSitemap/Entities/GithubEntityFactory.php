@@ -11,8 +11,9 @@ class GithubEntityFactory {
 
     /**
      * @brief Holds an associative array with the key holding a GithubPagesUser
-     * property and the value of that property being the github API response key
-     * the property is mapped to.
+     * property and the value of that key being the github API response key
+     * the property is mapped to; if the data does not come from the API response
+     * it does not need to be listed here.
      *
      * @property $pagesUserMap array
      */
@@ -23,7 +24,25 @@ class GithubEntityFactory {
         'blogUrl' => 'blog',
         'profileUrl' => 'html_url',
         'gravatarUrl' => 'gravatar_id',
-        'repoName' => ''
+        'publicRepos' => 'public_repos',
+        'publicGists' => 'public_gists',
+        'followers' => 'followers',
+        'following' => 'following',
+    );
+
+    /**
+     * @brief Holds an associative array with the key holding a GithubPagesRepo
+     * property and the valud of that key being the github API respose key the
+     * property is mapped to.
+     *
+     * @property $pagesRepoMap array
+     */
+    protected $pagesRepoMap = array(
+        'name' => 'name',
+        'apiUrl' => 'url',
+        'websiteUrl' => 'html_url',
+        'isPrivate' => 'private',
+        'masterBranch' => 'master_branch'
     );
 
     /**
@@ -49,6 +68,25 @@ class GithubEntityFactory {
         $return = $this->getMappedData('pagesUserMap', $data);
         $return['gravatarUrl'] = 'http://www.gravatar.com/avatar/' . $return['gravatarUrl'];
         $return['repoName'] = $return['name'] . '.github.com';
+        return $return;
+    }
+
+    /**
+     * @param $data An associative array representing a response from a github API
+     * request for a repository
+     * @return array
+     */
+    protected function getGithubPagesRepoData(array $data) {
+        $return = array();
+        if ($this->isErrorResponse($data)) {
+            return $return;
+        }
+        $return = $this->getMappedData('pagesRepoMap', $data);
+        $owner = (isset($data['owner']) && is_object($data['owner'])) ? $data['owner'] : new stdClass();
+        $return['owner'] = $owner;
+        if (is_null($return['masterBranch'])) {
+            $return['masterBranch'] = GithubPagesRepo::DEFAULT_MASTER_BRANCH;
+        }
         return $return;
     }
 
