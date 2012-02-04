@@ -27,7 +27,7 @@ class GithubPagesUser extends Entity {
         'apiUrl' => 'https://api.github.com',
         'blogUrl' => 'https://github.com/blog',
         'profileUrl' => 'https://github.com/github',
-        'gravatarUrl' => 'http://www.gravatar/avatar/',
+        'gravatarUrl' => 'http://www.gravatar.com/avatar/#',
         'publicRepos' => 0,
         'publicGists' => 0,
         'followers' => 0,
