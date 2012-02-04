@@ -51,13 +51,4 @@ class GithubPagesRepo extends Entity {
      */
     protected $masterBranch;
 
-    public function __construct(array $data) {
-        $this->name = $data['name'];
-        $this->apiUrl = $data['apiUrl'];
-        $this->websiteUrl = $data['websiteUrl'];
-        $this->isPrivate = $data['isPrivate'];
-        $this->masterBranch = $data['masterBranch'];
-    }
-
-
 }
