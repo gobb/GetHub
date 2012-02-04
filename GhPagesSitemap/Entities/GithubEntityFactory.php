@@ -46,11 +46,15 @@ class GithubEntityFactory {
     );
 
     /**
+     * @param $entityName String representing the domain object to create
      * @param $data an associative array with keys matching those in \a $this->defaults
      * @return An Entity object
      */
     public function createGithubEntityObject($entityName, array $data) {
         $method = 'get' . $entityName . 'Data';
+        if (!method_exists($this, $method)) {
+            throw new InvalidArgumentException('The entity name you requested does not exist or this factory is not properly setup to create it.');
+        }
         $data = call_user_func(array($this, $method), $data);
         return new $entityName($data);
     }
