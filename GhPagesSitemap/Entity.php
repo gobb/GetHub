@@ -26,6 +26,19 @@ abstract class Entity {
     protected $objectVars = array();
 
     /**
+     * @brief An associative array holding the default values for the values listed
+     * in the object.
+     *
+     * @details
+     * Please note that adding properties to this that are not explicitly defined
+     * in the class has no effect.  The data must be defined by the class to have
+     * a property set by it.
+     *
+     * @property $defaults array
+     */
+    protected $defaults = array();
+
+    /**
      * @brief You should accept an array of data to be stored in this Entity during
      * constructrion; setting values after construction are not allowed.
      *
@@ -41,9 +54,14 @@ abstract class Entity {
     protected function setProperties(array $data) {
         $this->objectVars = get_object_vars($this);
         unset($this->objectVars['objectVars']);
+        unset($this->objectVars['defaults']);
         foreach ($this->objectVars as $property => $value) {
             if (array_key_exists($property, $data)) {
                 $this->$property = $data[$property];
+            } else {
+                if (array_key_exists($property, $this->defaults)) {
+                    $this->$property = $this->defaults[$property];
+                }
             }
         }
     }
