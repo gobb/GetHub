@@ -42,7 +42,7 @@ class GithubApi {
     /**
      * @param $GhFactory GithubFactory
      */
-    public function __construct(GithubFactory $GhFactory) {
+    public function __construct(GithubEntityFactory $GhFactory) {
         $this->curl = curl_init();
         $this->Factory = $GhFactory;
     }
@@ -66,6 +66,7 @@ class GithubApi {
     public function getPagesRepo(GithubPagesUser $User) {
         $url = $this->apiUrl . 'repos/' . $User->name . '/' . $User->repoName;
         $request = $this->executeRequest($url);
+        $request['owner'] = $User;
         return $this->createGithubPagesRepo($request);
     }
 
@@ -105,19 +106,11 @@ class GithubApi {
      * @return GithubPagesUser
      */
     protected function createGithubPagesUser(array $userData) {
-        return $this->Factory->createPagesUser($userData);
+        return $this->Factory->createGithubEntityObject('GithubPagesUser', $userData);
     }
 
     protected function createGithubPagesRepo(array $repoData) {
-        return $this->Factory->createPagesRepo($repoData);
-    }
-
-    /**
-     * @param $postData An array of data pertaining to a specific blob in a tree
-     * @return GithubPost
-     */
-    protected function createGithubPost(array $postData) {
-        return $this->Factory->createPost($postData);
+        return $this->Factory->createGithubEntityObject('GithubPagesRepo', $repoData);
     }
 
 }
