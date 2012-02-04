@@ -6,7 +6,7 @@
  * @author Charles Sprayberry cspray at gmail.com
  * @uses Entity
  */
-class GithubPost extends Entity {
+class GithubPagesPost extends Entity {
 
     /**
      * @brief The relative path to the blog post, does not include any domain or
