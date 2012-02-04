@@ -4,6 +4,12 @@
  * @brief An immutable representation of the JSON response returned by github API
  * for a user.
  *
+ * @details
+ * Please note that if you add a property to this object and you do not also
+ * associate the proper API key in GithubEntityFactory that particular property
+ * will likely be set to the default values.  Also, please note that this includes
+ * keys where the domain and the API match perfectly...THESE STILL NEED TO BE SET!
+ *
  * @author Charles Sprayberry cspray at gmail.com
  * @uses Entity
  */
@@ -22,20 +28,22 @@ class GithubPagesUser extends Entity {
         'blogUrl' => 'https://github.com/blog',
         'profileUrl' => 'https://github.com/github',
         'gravatarUrl' => 'http://www.gravatar/avatar/',
+        'publicRepos' => 0,
+        'publicGists' => 0,
+        'followers' => 0,
+        'following' => 0,
         'repoName' => ''
     );
 
     /**
-     * @brief Returned in the 'id' field of the JSON response
-     *
-     * @var $id int
+     * @property $id int
      */
     protected $id;
 
     /**
-     * @brief Returned in the 'login' field of the JSON response
+     * @brief The username on github
      *
-     * @var $userName string
+     * @property $userName string
      */
     protected $name;
 
@@ -43,7 +51,7 @@ class GithubPagesUser extends Entity {
      * @brief The complete HTTPS URL to query the github API for more information about
      * the user.
      *
-     * @var $apiUrl string
+     * @property $apiUrl string
      */
     protected $apiUrl;
 
@@ -52,7 +60,7 @@ class GithubPagesUser extends Entity {
      * whatever is in their github profile under blog; this is expected to be the
      * URL to their github:pages blog of course.
      *
-     * @var $blogUrl string
+     * @property $blogUrl string
      */
     protected $blogUrl;
 
@@ -66,9 +74,37 @@ class GithubPagesUser extends Entity {
     /**
      * @brief The complete path to the user's gravatar
      *
-     * @var $gravatarUrl string
+     * @property $gravatarUrl string
      */
     protected $gravatarUrl;
+
+    /**
+     * @brief The number of public repositories this user has
+     *
+     * @property $publicRepos int
+     */
+    protected $publicRepos;
+
+    /**
+     * @brief The number of public gists this user has
+     *
+     * @property $publicGists int
+     */
+    protected $publicGists;
+
+    /**
+     * @brief The number of followers this user has
+     *
+     * @property $followers int
+     */
+    protected $followers;
+
+    /**
+     * @brief The number of github users this person is following
+     *
+     * @property $following int
+     */
+    protected $following;
 
     /**
      * @brief The name of the repo holding github:pages files
