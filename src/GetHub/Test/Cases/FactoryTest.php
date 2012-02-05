@@ -31,8 +31,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
      * appropriate DooHickey gets made.
      */
     public function testCreatingBasicValidDooHickey() {
-        $DooHickey = $this->Factory->createObject();
+        $object = new \GetHub\Test\Helpers\DooHickey(array());
+        $data = array(
+            'id' => 1,
+            'serial_number' => '1234567890',
+            'login' => 'cspray',
+            'parent' => $object
+        );
+        $DooHickey = $this->Factory->createObject($data);
         $this->assertTrue($DooHickey instanceof \GetHub\Test\Helpers\DooHickey);
+        $this->assertSame(1, $DooHickey->id);
+        $this->assertSame('1234567890', $DooHickey->serialNumber);
+        $this->assertSame('name', 'cspray');
+        $this->assertSame('parentDoohickey', $object);
     }
 
 }
