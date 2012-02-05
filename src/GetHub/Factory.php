@@ -11,15 +11,23 @@ namespace GetHub;
 abstract class Factory {
 
     /**
+     * @brief Method exposed to calling code to create objects produced by a given
+     * Factory
      *
+     * @param $data array Associative array of data to store in this object
+     * @return GetHub.Entity object
+     */
+    public function createObject(array $data = array()) {
+
+    }
+
+    /**
      * @param $name string The name of the class to create
      * @param $data array A list of data to create for this entity
      */
     protected function createEntity($name, array $data) {
 
     }
-
-    
 
     /**
      * @return array Associative with key matching key returned from github API and
