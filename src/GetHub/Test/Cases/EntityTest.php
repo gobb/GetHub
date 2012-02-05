@@ -102,4 +102,27 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($Entity->anObject instanceof \stdClass);
     }
 
+    /**
+     * @brief Will test that an entity can be looped over
+     */
+    public function testLoopingOverEntity() {
+        $data = array(
+            'id' => 1,
+            'name' => 'cspray',
+            'apiUrl' => 'https://api.github.com/',
+            'anObject' => null
+        );
+        $Entity = new \GetHub\Test\Helpers\Entity($data);
+        $expected = array('id' => 1, 'name' => 'cspray', 'apiUrl' => 'https://api.github.com/', 'anObject' => new \stdClass());
+        $didLoop = false;
+        foreach($Entity as $property => $value) {
+            if (!$didLoop) {
+                $didLoop = true;
+            }
+            $this->assertTrue(\array_key_exists($property, $expected));
+            $this->assertTrue($expected[$property] == $value);
+        }
+        $this->assertTrue($didLoop);
+    }
+
 }
