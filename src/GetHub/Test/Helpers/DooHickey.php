@@ -11,14 +11,14 @@ class DooHickey extends \GetHub\Entity {
 
     protected $id = 0;
 
-    protected $serialNumber = '0000000';
+    protected $serialNumber = '0000000000';
 
     protected $name = 'Thinga-Ma-Bob';
 
-    protected $parentDoohickey;
+    protected $parentDooHickey;
 
     public function __construct(array $data) {
-        $this->parentDoohickey = new \stdClass();
+        $this->parentDooHickey = new \stdClass();
         parent::__construct($data);
     }
 
