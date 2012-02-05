@@ -21,13 +21,11 @@ class Factory extends \GetHub\Factory {
     }
 
     /**
-     * @brief This method is required by the GetHub.Factory class
-     *
-     * @return object An empty or null object for whatever class this Factory is
-     * producing.
+     * @return string The Java or PHP-style namespaced class that this Factory
+     * should create.
      */
-    protected function getNullObject() {
-
+    protected function getObjectName() {
+        return 'GetHub.Test.Helpers.DooHickey';
     }
 
 
