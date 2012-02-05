@@ -10,6 +10,13 @@ namespace GetHub\Test\Helpers;
 
 class Factory extends \GetHub\Factory {
 
+    protected $apiMap = array(
+        'id' => 'id',
+        'serial_number' => 'serialNumber',
+        'login' => 'name',
+        'parent' => 'parentDooHickey'
+    );
+
     /**
      * @brief This method is required by the GetHub.Factory class
      *
@@ -17,7 +24,7 @@ class Factory extends \GetHub\Factory {
      * data object key as the value.
      */
     protected function getApiMap() {
-        return array();
+        return $this->apiMap;
     }
 
     /**
