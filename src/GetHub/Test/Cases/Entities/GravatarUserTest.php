@@ -19,6 +19,30 @@ class GravatarUserTest extends \PHPUnit_Framework_TestCase {
         );
         $GravatarUser = new \GetHub\Entities\GravatarUser($data);
         $this->assertSame('http://www.gravatar.com/avatar/#', $GravatarUser->getGravatarUrl());
+        $this->assertFalse(isset($Entity->gravatarUrl));
+    }
+
+    /**
+     * @brief Testing that we get back the proper extension if the flag is passed
+     */
+    public function testGettingUrlWithExtension() {
+        $data = array(
+            'gravatarId' => '#'
+        );
+        $GravatarUser = new \GetHub\Entities\GravatarUser($data);
+        $this->assertSame('http://www.gravatar.com/avatar/#.jpg', $GravatarUser->getGravatarUrl(true));
+    }
+
+    /**
+     * @brief Testing that we get back a proper NullObject is no data is passed in
+     */
+    public function testGettingNullObject() {
+        $hash = \md5('rolltiderollsprayfireisthebombo@thisisnotsupposedtomakesense.com');
+        $data = array(
+
+        );
+        $GravatarUser = new \GetHub\Entities\GravatarUser($data);
+        $this->assertSame('http://www.gravatar.com/avatar/', $GravatarUser->getGravatarUrl());
     }
 
 }
