@@ -31,7 +31,7 @@ class UserStubFactoryTest extends \PHPUnit_Framework_TestCase {
         $data = array(
             'id' => 1,
             'login' => 'cspray',
-            'gratavar_id' => '#1234',
+            'gravatar_id' => '#1234',
             'url' => 'https://api.github.com/users/cspray'
         );
         $Stub = $this->Factory->createObject($data);
@@ -40,6 +40,19 @@ class UserStubFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('cspray', $Stub->name);
         $this->assertSame('#1234', $Stub->gravatarId);
         $this->assertSame('https://api.github.com/users/cspray', $Stub->apiUrl);
+    }
+
+    /**
+     * @brief Ensuring that the appropriate object is returned if no data is passed
+     */
+    public function testUserStubFactoryCreatingNullObject() {
+        $Stub = $this->Factory->createObject();
+        $gravatarHash = \md5();
+        $this->assertTrue($Stub instanceof \GetHub\Entities\UserStub);
+        $this->assertSame(0, $Stub->id);
+        $this->assertSame('', $Stub->name);
+        $this->assertSame('', $Stub->gravatarId);
+        $this->assertSame('https://api.github.com', $Stub->apiUrl);
     }
 
 }
