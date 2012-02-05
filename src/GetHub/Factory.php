@@ -15,10 +15,10 @@ abstract class Factory {
      * Factory
      *
      * @param $data array Associative array of data to store in this object
-     * @return GetHub.Entity object
+     * @return object GetHub.Entity
      */
     public function createObject(array $data = array()) {
-
+        return $this->createEntity($this->getObjectName(), $data);
     }
 
     /**
@@ -26,7 +26,43 @@ abstract class Factory {
      * @param $data array A list of data to create for this entity
      */
     protected function createEntity($name, array $data) {
+        $class = $this->convertJavaClassToPhpClass($name);
+        $apiMap = $this->getApiMap();
+        $mappedData = $this->getMappedData($apiMap, $data);
+        return new $class($mappedData);
+    }
 
+    /**
+     * @param $apiMap array Associative holding map for github API -> GetHub domain.
+     * @param $data array Associative returned from github API.
+     * @return array Associative of data with GetHub domain key and the value returned
+     * from github API.
+     */
+    protected function getMappedData(array $apiMap, array $data) {
+        $mappedData = array();
+        foreach ($apiMap as $apiKey => $domainKey) {
+            if (\array_key_exists($apiKey, $data)) {
+                $mappedData[$domainKey] = $data[$apiKey];
+            }
+        }
+        return $mappedData;
+    }
+
+    /**
+     * @param $className A Java-style namespaced class
+     * @return A PHP-style namespaced class
+     */
+    protected function convertJavaClassToPhpClass($className) {
+        if (!\is_string($className)) {
+            return $className;
+        }
+
+        $backSlash = '\\';
+        $dot = '.';
+        if (\strpos($className, $dot) !== false) {
+            $className = \str_replace($dot, $backSlash, $className);
+        }
+        return $backSlash . \trim($className, '\\ ');
     }
 
     /**
@@ -36,9 +72,9 @@ abstract class Factory {
     abstract protected function getApiMap();
 
     /**
-     * @return object An object that should be used as the return type when an
-     * error is occurred creating the requested object.
+     * @return string A Java or PHP-style namespaced class that this Factory should
+     * create.
      */
-    abstract protected function getNullObject();
+    abstract protected function getObjectName();
 
 }
