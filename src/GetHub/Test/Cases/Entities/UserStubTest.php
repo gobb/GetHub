@@ -41,4 +41,26 @@ class UserStubTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('http://github.com/', $Stub->getProfileUrl());
     }
 
+    /**
+     * @brief Testing that if additional, non-set properties are added in the data
+     * array the property is not set to the value.
+     */
+    public function testAddingInvalidArguments() {
+        $data = array(
+            'id' => 4,
+            'name' => 'cspray',
+            'apiUrl' => 'https://api.github.com/users/cspray',
+            'gravatarId' => '#',
+            'doesNotBelong' => 'nothing here',
+            'thisToo' => 'should have nothing in it'
+        );
+        $Stub = new \GetHub\Entities\UserStub($data);
+        $this->assertSame(4, $Stub->id);
+        $this->assertSame('cspray', $Stub->name);
+        $this->assertSame('https://api.github.com/users/cspray', $Stub->apiUrl);
+        $this->assertSame('#', $Stub->gravatarId);
+        $this->assertNull($Stub->doesNotBelong);
+        $this->assertFalse(isset($Stub->thisToo));
+    }
+
 }
