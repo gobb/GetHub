@@ -28,7 +28,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @brief Ensures that we can create a DooHickey with some data and that the
-     * appropriate DooHickey gets made.
+     * appropriate DooHickey gets made and mapped to the right properties.
      */
     public function testCreatingBasicValidDooHickey() {
         $object = new \GetHub\Test\Helpers\DooHickey(array());
@@ -42,8 +42,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($DooHickey instanceof \GetHub\Test\Helpers\DooHickey);
         $this->assertSame(1, $DooHickey->id);
         $this->assertSame('1234567890', $DooHickey->serialNumber);
-        $this->assertSame('name', 'cspray');
-        $this->assertSame('parentDoohickey', $object);
+        $this->assertSame('cspray', $DooHickey->name);
+        $this->assertEquals($object, $DooHickey->parentDooHickey);
+    }
+
+    public function testCreatingNullDooHickey() {
+        $DooHickey = $this->Factory->createObject();
+        $this->assertSame(0, $DooHickey->id);
+        $this->assertSame('0000000000', $DooHickey->serialNumber);
+        $this->assertSame('Thinga-Ma-Bob', $DooHickey->name);
+        $this->assertEquals(new \stdClass(), $DooHickey->parentDooHickey);
     }
 
 }
