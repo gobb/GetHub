@@ -46,6 +46,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($object, $DooHickey->parentDooHickey);
     }
 
+    /**
+     * @brief Ensures that the Factory is producing the appropriate NullObject if
+     * no data is passed.
+     */
     public function testCreatingNullDooHickey() {
         $DooHickey = $this->Factory->createObject();
         $this->assertSame(0, $DooHickey->id);
