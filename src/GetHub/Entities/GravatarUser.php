@@ -14,7 +14,7 @@ class GravatarUser extends \GetHub\Entity {
      *
      * @property $gravatarId string
      */
-    protected $gravatarId;
+    protected $gravatarId = '';
 
     /**
      * @brief The URL to use for retrieving Gravatar images.
@@ -27,8 +27,6 @@ class GravatarUser extends \GetHub\Entity {
     protected $gravatarUrl = 'http://www.gravatar.com/avatar/';
 
     public function __construct(array $data) {
-        $hash = \md5('rolltiderollsprayfireisthebombo@thisisnotsupposedtomakesense.com');
-        $this->gravatarId = $hash;
         parent::__construct($data);
         unset($this->objectVars['gravatarUrl']);
     }
