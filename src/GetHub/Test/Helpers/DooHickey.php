@@ -18,7 +18,7 @@ class DooHickey extends \GetHub\Entity {
     protected $parentDoohickey;
 
     public function __construct(array $data) {
-        $this->parentDoohickey = new self(array());
+        $this->parentDoohickey = new \stdClass();
         parent::__construct($data);
     }
 
