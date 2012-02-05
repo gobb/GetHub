@@ -37,12 +37,8 @@ class GravatarUserTest extends \PHPUnit_Framework_TestCase {
      * @brief Testing that we get back a proper NullObject is no data is passed in
      */
     public function testGettingNullObject() {
-        $hash = \md5('rolltiderollsprayfireisthebombo@thisisnotsupposedtomakesense.com');
-        $data = array(
-
-        );
-        $GravatarUser = new \GetHub\Entities\GravatarUser($data);
-        $this->assertSame('http://www.gravatar.com/avatar/' . $hash, $GravatarUser->getGravatarUrl());
+        $GravatarUser = new \GetHub\Entities\GravatarUser(array());
+        $this->assertSame('http://www.gravatar.com/avatar/', $GravatarUser->getGravatarUrl());
     }
 
 }
