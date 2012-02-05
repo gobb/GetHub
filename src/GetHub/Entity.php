@@ -74,6 +74,14 @@ class Entity {
         return false;
     }
 
+    /**
+     * @param $property string Name of the property attempting to destroy
+     * @throws DomainException
+     */
+    public function __unset($property) {
+        throw new \DomainException('The property, ' . $property . ', may not be unset.');
+    }
+
     protected function isProperty($property) {
         return \in_array($property, $this->objectVars);
     }
