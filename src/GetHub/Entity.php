@@ -8,7 +8,7 @@
 
 namespace GetHub;
 
-abstract class Entity {
+abstract class Entity implements \IteratorAggregate {
 
     /**
      * @brief Holds an array of properties for the specific domain object.
@@ -72,6 +72,17 @@ abstract class Entity {
             return isset($this->$property);
         }
         return false;
+    }
+
+    /**
+     * @return ArrayIterator Holds values for properties set in \a $this->objectVars
+     */
+    public function getIterator() {
+        $data = array();
+        foreach ($this->objectVars as $property) {
+            $data[$property] = $this->$property;
+        }
+        return new \ArrayIterator($data);
     }
 
     /**
