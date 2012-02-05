@@ -82,6 +82,10 @@ class Entity {
         throw new \DomainException('The property, ' . $property . ', may not be unset.');
     }
 
+    public function __set($property, $value) {
+        throw new \DomainException('The property, ' . $property . ', may not be set to a new value.');
+    }
+
     protected function isProperty($property) {
         return \in_array($property, $this->objectVars);
     }
