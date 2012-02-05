@@ -42,25 +42,40 @@ class Entity {
      * @brief Will only set the data if the key exists in \a $this->objectVars
      * AND the data has been set.
      *
-     * @param $data An associative array with keys mapping to class members
+     * @param $data array Associative with keys mapping to class members
      */
     protected function setProperties(array $data) {
         foreach ($data as $property => $value) {
-            if (\in_array($property, $this->objectVars) && isset($value)) {
+            if ($this->isProperty($property) && isset($value)) {
                 $this->$property = $value;
             }
         }
     }
 
     /**
-     * @param $property The class member holding the data to return
+     * @param $property string The class member holding the data to return
      * @return mixed What is held by \a $property or null if it does not exist
      */
     public function __get($property) {
-        if (\in_array($property, $this->objectVars)) {
+        if ($this->isProperty($property)) {
             return $this->$property;
         }
         return null;
+    }
+
+    /**
+     * @param $property string The name of the property to return the value of
+     * @return boolean
+     */
+    public function __isset($property) {
+        if ($this->isProperty($property)) {
+            return isset($this->$property);
+        }
+        return false;
+    }
+
+    protected function isProperty($property) {
+        return \in_array($property, $this->objectVars);
     }
 
 }
