@@ -62,13 +62,32 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $exceptionThrown = false;
         try {
             unset($Entity->id);
-        } catch (\DomainException $DomainException) {
+        } catch(\DomainException $DomainException) {
             $exceptionThrown = true;
             $this->assertSame('The property, id, may not be unset.', $DomainException->getMessage());
         }
         $this->assertTrue($exceptionThrown);
     }
 
-
+    /**
+     * @brief Testing that you cannot set the property of an object
+     */
+    public function testSettingAnEntityProperty() {
+        $data = array(
+            'id' => 1,
+            'name' => 'cspray',
+            'apiUrl' => 'https://api.github.com/',
+            'anObject' => null
+        );
+        $Entity = new \GetHub\Test\Helpers\Entity($data);
+        $exceptionThrown = false;
+        try {
+            $Entity->name = 'GetHub';
+        } catch(\DomainException $DomainException) {
+            $exceptionThrown = true;
+            $this->assertSame('The property, name, may not be set to a new value.', $DomainException->getMessage());
+        }
+        $this->assertTrue($exceptionThrown);
+    }
 
 }
