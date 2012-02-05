@@ -28,8 +28,24 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($Entity->anObject instanceof \stdClass);
     }
 
+    /**
+     * @brief Making sure that we can properly cast isset on objects and we get
+     * an appropriate response.
+     */
     public function testIssetOnEntityProperties() {
-        
+        $data = array(
+            'id' => null,
+            'name' => 'cspray',
+            'apiUrl' => 'https://api.github.com/',
+            'anObject' => null
+        );
+        $Entity = new \GetHub\Test\Helpers\Entity($data);
+        $this->assertTrue(isset($Entity->id));
+        $this->assertTrue(isset($Entity->name));
+        $this->assertTrue(isset($Entity->apiUrl));
+        $this->assertTrue(isset($Entity->anObject));
+        $this->assertFalse(isset($Entity->objectVars));
+        $this->assertFalse(isset($Entity->doNotExist));
     }
 
 
