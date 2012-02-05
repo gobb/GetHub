@@ -27,8 +27,7 @@ abstract class Factory {
      */
     protected function createEntity($name, array $data) {
         $class = $this->convertJavaClassToPhpClass($name);
-        $apiMap = $this->getApiMap();
-        $mappedData = $this->getMappedData($apiMap, $data);
+        $mappedData = $this->getMappedData($data);
         return new $class($mappedData);
     }
 
@@ -38,8 +37,9 @@ abstract class Factory {
      * @return array Associative of data with GetHub domain key and the value returned
      * from github API.
      */
-    protected function getMappedData(array $apiMap, array $data) {
+    protected function getMappedData(array $data) {
         $mappedData = array();
+        $apiMap = $this->getApiMap();
         foreach ($apiMap as $apiKey => $domainKey) {
             if (\array_key_exists($apiKey, $data)) {
                 $mappedData[$domainKey] = $data[$apiKey];
