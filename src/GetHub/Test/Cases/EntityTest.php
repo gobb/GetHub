@@ -90,4 +90,16 @@ class EntityTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($exceptionThrown);
     }
 
+    /**
+     * @brief Makes sure that if an empty array is passed a NullObject is propertly
+     * returned with the default values.
+     */
+    public function testSettingNullProperties() {
+        $Entity = new \GetHub\Test\Helpers\Entity(array('id' => null));
+        $this->assertSame(0, $Entity->id);
+        $this->assertSame('gethubocat', $Entity->name);
+        $this->assertSame('https://cspray.github.com/api/', $Entity->apiUrl);
+        $this->assertTrue($Entity->anObject instanceof \stdClass);
+    }
+
 }
