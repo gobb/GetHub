@@ -8,7 +8,7 @@
 
 namespace GetHub;
 
-class Entity {
+abstract class Entity {
 
     /**
      * @brief Holds an array of properties for the specific domain object.
@@ -82,6 +82,11 @@ class Entity {
         throw new \DomainException('The property, ' . $property . ', may not be unset.');
     }
 
+    /**
+     * @param $property string Name of the property attempting to set
+     * @param $value mixed Doesn't matter.  NO SET FOR YOU!
+     * @throws DomainException
+     */
     public function __set($property, $value) {
         throw new \DomainException('The property, ' . $property . ', may not be set to a new value.');
     }
