@@ -6,7 +6,9 @@
  * data.
  */
 
-class GetHubEntityHelper extends GetHubEntity {
+namespace GetHub\Test\Helpers;
+
+class Entity extends \GetHub\Entity {
 
     protected $id = 0;
 
@@ -17,7 +19,7 @@ class GetHubEntityHelper extends GetHubEntity {
     protected $anObject = null;
 
     public function __construct(array $data) {
-        $this->anObject = new stdClass();
+        $this->anObject = new \stdClass();
         parent::__construct($data);
     }
 
