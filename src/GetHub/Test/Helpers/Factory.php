@@ -17,7 +17,7 @@ class Factory extends \GetHub\Factory {
      * data object key as the value.
      */
     protected function getApiMap() {
-
+        return array();
     }
 
     /**
