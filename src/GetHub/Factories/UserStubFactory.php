@@ -16,7 +16,10 @@ class UserStubFactory extends \GetHub\Factory {
      */
     protected function getApiMap() {
         return array(
-            
+            'id' => 'id',
+            'login' => 'name',
+            'gravatar_id' => 'gravatarId',
+            'url' => 'apiUrl'
         );
     }
 
