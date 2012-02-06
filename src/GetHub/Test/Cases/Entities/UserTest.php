@@ -78,4 +78,49 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('', $User->location, 'location failed:');
         $this->assertSame('', $User->email, 'email failed:');
     }
+
+    /**
+     * @brief Tests that we can always return a GetHub.Entities.UserStub object
+     * when we call getFollowerById().
+     */
+    public function testConvenienceFunctionGetFollowerById() {
+
+        $edorianData = array(
+            'id' => 2,
+            'name' => 'edorian',
+            'apiUrl' => 'https://api.github.com/users/edorian',
+            'gravatarId' => '#edorian'
+        );
+        $ircmaxellData = array(
+            'id' => 3,
+            'name' => 'ircmaxell',
+            'apiUrl' => 'https://api.github.com/users/ircmaxell',
+            'gravatarId' => '#ircmaxell'
+        );
+        $nikicData = array(
+            'id' => 4,
+            'name' => 'nikic',
+            'apiUrl' => 'https://api.github.com/users/nikic',
+            'gravatarId' => '#nikic'
+        );
+
+        $data['followers'] = array();
+        $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
+        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
+
+        $User = new \GetHub\Entities\User($data);
+
+        $three = $User->getFollowerStubById(3);
+        $this->assertTrue($three instanceof \GetHub\Entities\UserStub, 'getting 3:ircmaxell stub returned non stub object:');
+        $this->assertSame(3, $three->id);
+        $this->assertSame('ircmaxell', $three->name);
+        $this->assertSame('https://api.github.com/users/ircmaxell', $three->apiUrl);
+        $this->assertSame('#ircmaxell', $three->gravatarId);
+
+        $noexist = $User->getFollowerStubById('0');
+        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertSame(0, $noexist->id);
+    }
 }
