@@ -41,25 +41,36 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
             'followers' => array(
                 array(
                     'id' => 2,
-                    'name' => 'octocat',
-                    'apiUrl' => 'https://api.github.com/users/octocat',
-                    'gravatarId' => '#octocat'
+                    'login' => 'edorian',
+                    'url' => 'https://api.github.com/users/edorian',
+                    'gravatar_id' => '#edorian'
                 ),
                 array(
                     'id' => 3,
-                    'name' => 'ircmaxell',
-                    'apiUrl' => 'https://api.github.com/users/ircmaxll',
-                    'gravatarId' => '#ircmaxell'
+                    'login' => 'ircmaxell',
+                    'url' => 'https://api.github.com/users/ircmaxell',
+                    'gravatar_id' => '#ircmaxell'
                 ),
                 array(
                     'id' => 4,
-                    'name' => 'nikic',
-                    'apiUrl' => 'https://api.github.com/users/nikic',
-                    'gravatarId' => '#nikic'
+                    'login' => 'nikic',
+                    'url' => 'https://api.github.com/users/nikic',
+                    'gravatar_id' => '#nikic'
                 )
             ),
             'following' => array(
-                'following'
+                array(
+                    'id' => 5,
+                    'login' => 'teresko',
+                    'url' => 'https://api.github.com/users/teresko',
+                    'gravatar_id' => '#teresko'
+                ),
+                array(
+                    'id' => 6,
+                    'login' => 'PeeHaa',
+                    'url' => 'https://api.github.com/users/PeeHaa',
+                    'gravatar_id' => '#PeeHaa'
+                )
             ),
             'hireable' => true,
             'bio' => 'Hi, my name is Charles.',
@@ -83,8 +94,57 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('Gitopolis', $User->location);
         $this->assertSame('cspray@gmail.com', $User->email);
         $followers = $User->followers;
+        $expectedFollowerData = array(
+            array(
+                'id' => 2,
+                'login' => 'edorian',
+                'url' => 'https://api.github.com/users/edorian',
+                'gravatar_id' => '#edorian'
+            ),
+            array(
+                'id' => 3,
+                'login' => 'ircmaxell',
+                'url' => 'https://api.github.com/users/ircmaxell',
+                'gravatar_id' => '#ircmaxell'
+            ),
+            array(
+                'id' => 4,
+                'login' => 'nikic',
+                'url' => 'https://api.github.com/users/nikic',
+                'gravatar_id' => '#nikic'
+            )
+        );
+
+        $expectedFollowerIndex = 0;
         foreach ($followers as $follower) {
             $this->assertTrue($follower instanceof \GetHub\Entities\UserStub, 'A follower is not a UserStub:');
+            $followerData = $expectedFollowerData[$expectedFollowerIndex];
+            $this->assertSame($followerData['id'], $follower->id);
+            $this->assertSame($followerData['login'], $follower->name);
+            $this->assertSame($followerData['url'], $follower->apiUrl);
+            $this->assertSame($followerData['gravatar_id'], $follower->gravatarId);
+            $expectedFollowerIndex++;
+        }
+
+        $following = $User->following;
+        $expectedFollowingData = array(
+            array(
+                'id' => 5,
+                'login' => 'teresko',
+                'url' => 'https://api.github.com/users/tersko',
+                'gravatar_id' => '#teresko'
+            ),
+            array(
+                'id' => 6,
+                'login' => 'PeeHaa',
+                'url' => 'https://api.github.com/users/PeeHaa',
+                'gravatar_id' => '#PeeHaa'
+            )
+        );
+
+        $expectedFollowingIndex = 0;
+        foreach ($following as $userFollowing) {
+            $this->assertTrue($userFollowing instanceof \GetHub\Entities\UserStub, 'A following user is not a UserStub');
         }
     }
 
