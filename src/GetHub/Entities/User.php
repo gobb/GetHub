@@ -151,7 +151,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given name, false if not
      */
     public function hasFollowerByName($name) {
-        return $this->hasFollowerByProperty('name', $name);
+        return $this->groupHasStub('followers', 'name', $name);
     }
 
     /**
@@ -159,20 +159,21 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given id, false if not
      */
     public function hasFollowerById($id) {
-        return $this->hasFollowerByProperty('id', (int) $id);
+        return $this->groupHasStub('followers', 'id', (int) $id);
     }
 
     /**
-     * @param $property string UserStub property to compare to \a $compare
-     * @param $compare mixed The value to compare to \a $property
-     * @return boolean true if \a $property is identical to \a $compare
+     * @param $groupToSearch string Property of this entity holding an array of Stubs to search
+     * @param $stubProperty string Name of the stub's property to comapre to
+     * @param $compare mixed The value of \a $stubProperty that should match for a true result
+     * @return boolean
      */
-    protected function hasFollowerByProperty($property, $compare) {
-        foreach ($this->followers as $follower) {
-            if (!$follower instanceof \GetHub\Entities\UserStub) {
+    protected function groupHasStub($groupToSearch, $stubProperty, $compare) {
+        foreach ($this->$groupToSearch as $stub) {
+            if (!$stub instanceof \GetHub\Entities\UserStub) {
                 continue;
             }
-            if ($follower->$property === $compare) {
+            if ($stub->$stubProperty === $compare) {
                 return true;
             }
         }
@@ -218,8 +219,5 @@ class User extends \GetHub\Entities\UserStub {
         }
         return $stub;
     }
-
-
-
 
 }
