@@ -46,6 +46,14 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
     }
 
     /**
+     * @param $data array An array of data to be stored in a GetHub.Entities.UserStub
+     * @return GetHub.Entities.UserStub
+     */
+    public function createStub(array $data) {
+        return parent::createEntity(parent::getObjectName(), $data);
+    }
+
+    /**
      * @param $data array Associative that may or may not have a key followers.
      * @return array of GetHub.Entities.UserStub objects or an empty array
      */
@@ -80,7 +88,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      * @return array with NullUserStub key added
      */
     protected function addNullUserStub(array $data) {
-        $data['NullUserStub'] = '';
+        $data['NullUserStub'] = $this->createStub(array());
         return $data;
     }
 
@@ -94,7 +102,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
         $stubs = array();
         foreach ($stubData as $stub) {
             if (\is_array($stub)) {
-                $stubs[] = '';
+                $stubs[] = $this->createStub($stub);
             }
         }
         return $stubs;
