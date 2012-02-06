@@ -256,7 +256,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
             )
         );
         $User = $this->Factory->createObject($data);
-        $this->assertTrue($User->getFollowerByName('edorian') instanceof \GetHub\Entities\UserStub);
+        $this->assertTrue($User->getFollowerStubByName('edorian') instanceof \GetHub\Entities\UserStub);
     }
 
 }
