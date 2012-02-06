@@ -116,7 +116,17 @@ class User extends \GetHub\Entities\UserStub {
      * @return GetHub.Entities.UserStub
      */
     public function getFollowerStubByName($name) {
-
+        $stub = null;
+        foreach ($this->followers as $follower) {
+            if (!$follower instanceof \GetHub\Entities\UserStub) {
+                continue;
+            }
+            if ($follower->name === $name) {
+                $stub = $follower;
+                break;
+            }
+        }
+        return $stub;
     }
 
     /**
