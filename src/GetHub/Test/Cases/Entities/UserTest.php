@@ -277,4 +277,40 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($User->isFollowingById(5), 'Does not have follower 5');
     }
 
+    /**
+     * @brief Testing the convenience function to see if this user is following a
+     * user with a given name
+     */
+    public function testConvenienceFunctionIsFollowingByName() {
+        $edorianData = array(
+            'id' => 2,
+            'name' => 'edorian',
+            'apiUrl' => 'https://api.github.com/users/edorian',
+            'gravatarId' => '#edorian'
+        );
+        $ircmaxellData = array(
+            'id' => 3,
+            'name' => 'ircmaxell',
+            'apiUrl' => 'https://api.github.com/users/ircmaxell',
+            'gravatarId' => '#ircmaxell'
+        );
+        $nikicData = array(
+            'id' => 4,
+            'name' => 'nikic',
+            'apiUrl' => 'https://api.github.com/users/nikic',
+            'gravatarId' => '#nikic'
+        );
+
+        $data['following'] = array();
+        $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
+        $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
+        $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
+        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
+
+        $User = new \GetHub\Entities\User($data);
+        $this->assertTrue($User->isFollowingByName('nikic'), 'Is not following nikic: ');
+        $this->assertTrue($User->isFollowingByName('edorian'), 'Is not following edorian: ');
+        $this->assertFalse($User->isFollowingByName('nothere'), 'Is not following nothere: ');
+    }
+
 }
