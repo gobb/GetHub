@@ -108,26 +108,33 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given name, false if not
      */
     public function hasFollowerByName($name) {
+        return $this->hasFollowerByProperty('name', $name);
+    }
+
+    /**
+     * @param $id int or numeric string Represents the github user id to serach for
+     * @return boolean true if the user has a follower with the given id, false if not
+     */
+    public function hasFollowerById($id) {
+        
+    }
+
+    /**
+     * @param $property string UserStub property to compare to \a $compare
+     * @param $compare mixed The value to compare to \a $property
+     * @return boolean true if \a $property is identical to \a $compare
+     */
+    protected function hasFollowerByProperty($property, $compare) {
         foreach ($this->followers as $follower) {
             if (!$follower instanceof \GetHub\Entities\UserStub) {
                 continue;
             }
-            if ($follower->name === $name) {
+            if ($follower->$property === $compare) {
                 return true;
             }
         }
         return false;
     }
-
-    /**
-     *
-     * @param $id int or numeric string Represents the github user id to serach for
-     * @return boolean true if the user has a follower with the given id, false if not
-     */
-    public function hasFollowerById($id) {
-
-    }
-
 
 
 }
