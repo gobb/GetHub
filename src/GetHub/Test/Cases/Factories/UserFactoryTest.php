@@ -3,6 +3,13 @@
 /**
  * @file
  * @brief Holds a PHPUnit test case to confirm the functionality of UserFactoryTest
+ *
+ * @details
+ * Please note that we are testing the convenience functions for the GetHub.Entities.User
+ * object in this test case because the object by itself does not have the capability
+ * to create stubs to replace various array data.  Since these functions will rely
+ * on the fact that stubs are expected in certain places they can only be checked
+ * by creating one via the factory.
  */
 
 namespace GetHub\Test\Cases\Factories;
@@ -131,7 +138,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
             array(
                 'id' => 5,
                 'login' => 'teresko',
-                'url' => 'https://api.github.com/users/tersko',
+                'url' => 'https://api.github.com/users/teresko',
                 'gravatar_id' => '#teresko'
             ),
             array(
@@ -152,6 +159,36 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
             $this->assertSame($followingData['gravatar_id'], $userFollowing->gravatarId);
             $expectedFollowingIndex++;
         }
+    }
+
+    /**
+     * @brief Testing the convenience function to see if a user has a follower.
+     */
+    public function testConvenienceFunctionHasFollower() {
+        $data = array(
+            'followers' => array(
+                array(
+                    'id' => 2,
+                    'login' => 'edorian',
+                    'url' => 'https://api.github.com/users/edorian',
+                    'gravatar_id' => '#edorian'
+                ),
+                array(
+                    'id' => 3,
+                    'login' => 'ircmaxell',
+                    'url' => 'https://api.github.com/users/ircmaxell',
+                    'gravatar_id' => '#ircmaxell'
+                ),
+                array(
+                    'id' => 4,
+                    'login' => 'nikic',
+                    'url' => 'https://api.github.com/users/nikic',
+                    'gravatar_id' => '#nikic'
+                )
+            )
+        );
+        $User = $this->Factory->createObject($data);
+        $this->assertTrue($User->hasFollowerByName('edorian'));
     }
 
 }
