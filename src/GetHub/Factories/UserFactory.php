@@ -58,10 +58,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      * @return array of GetHub.Entities.UserStub objects or an empty array
      */
     protected function convertFollowersToUserStubs(array $data) {
-        if (empty($data)) {
-            return $data;
-        }
-        $followers = (\array_key_exists('followers', $data)) ? $data['followers'] : array();
+        $followers = (\array_key_exists('followers', $data) && \is_array($data['followers'])) ? $data['followers'] : array();
         $followerStubs = $this->getUserStubs($followers);
         $data['followers'] = $followerStubs;
         return $data;
@@ -72,23 +69,9 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      * @return array of GetHub.Entities.UserStub objects or an empty array
      */
     protected function convertFollowingToUserStubs(array $data) {
-        if (empty($data)) {
-            return $data;
-        }
-        $following = (\array_key_exists('following', $data)) ? $data['following'] : array();
+        $following = (\array_key_exists('following', $data) && \is_array($data['following'])) ? $data['following'] : array();
         $followingStubs = $this->getUserStubs($following);
         $data['following'] = $followingStubs;
-        return $data;
-    }
-
-    /**
-     * @brief Ensures that we get a NullObject for user stub calls in GetHub.Entities.User
-     *
-     * @param $data array response from github API
-     * @return array with NullUserStub key added
-     */
-    protected function addNullUserStub(array $data) {
-        $data['NullUserStub'] = $this->createStub(array());
         return $data;
     }
 
@@ -106,6 +89,17 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
             }
         }
         return $stubs;
+    }
+
+    /**
+     * @brief Ensures that we get a NullObject for user stub calls in GetHub.Entities.User
+     *
+     * @param $data array response from github API
+     * @return array with NullUserStub key added
+     */
+    protected function addNullUserStub(array $data) {
+        $data['NullUserStub'] = $this->createStub(array());
+        return $data;
     }
 
     /**
