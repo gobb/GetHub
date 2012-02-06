@@ -35,7 +35,7 @@ abstract class Entity implements \IteratorAggregate {
     protected function setObjectVars() {
         $objectVars = \get_object_vars($this);
         unset($objectVars['objectVars']);
-        $this->objectVars = \array_keys($objectVars);
+        $this->objectVars = $objectVars;
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class Entity implements \IteratorAggregate {
      */
     public function getIterator() {
         $data = array();
-        foreach ($this->objectVars as $property) {
+        foreach ($this->objectVars as $property => $defaultValue) {
             $data[$property] = $this->$property;
         }
         return new \ArrayIterator($data);
@@ -103,7 +103,7 @@ abstract class Entity implements \IteratorAggregate {
     }
 
     protected function isProperty($property) {
-        return \in_array($property, $this->objectVars);
+        return \array_key_exists($property, $this->objectVars);
     }
 
 }
