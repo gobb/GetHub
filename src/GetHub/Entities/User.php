@@ -105,6 +105,7 @@ class User extends \GetHub\Entities\UserStub {
 
     /**
      * @param $name string The name of the follower to check for this user
+     * @return boolean true if the user has a follower with the given name, false if not
      */
     public function hasFollowerByName($name) {
         foreach ($this->followers as $follower) {
@@ -117,5 +118,16 @@ class User extends \GetHub\Entities\UserStub {
         }
         return false;
     }
+
+    /**
+     *
+     * @param $id int or numeric string Represents the github user id to serach for
+     * @return boolean true if the user has a follower with the given id, false if not
+     */
+    public function hasFollowerById($id) {
+
+    }
+
+
 
 }
