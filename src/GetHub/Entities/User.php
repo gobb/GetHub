@@ -15,7 +15,7 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $fullName string
      */
-    protected $fullName;
+    protected $fullName = '';
 
     /**
      * @brief A URL for the user's blog as set on their github profile or the URL
@@ -30,7 +30,7 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $blogUrl string
      */
-    protected $blogUrl;
+    protected $blogUrl = 'http://github.com/blog';
 
     /**
      * @brief A timestamp for the datetime the user they created their github
@@ -42,21 +42,21 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $createdAt string
      */
-    protected $createdAt;
+    protected $createdAt = '0000-00-00T00:00:00Z';
 
     /**
      * @brief An array of GetHub.Entities.RepoStub objects belonging to this user.
      *
      * @property $publicRepoStubs array
      */
-    protected $publicRepoStubs;
+    protected $publicRepoStubs = array();
 
     /**
      * @brief An array of GetHub.Entities.GistStub objects belonging to this user.
      *
      * @property $publicGistStubs array
      */
-    protected $publicGistStubs;
+    protected $publicGistStubs = array();
 
     /**
      * @brief An array of GetHub.Entities.UserStub objects representing users
@@ -64,7 +64,7 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $followers array
      */
-    protected $followers;
+    protected $followers = array();
 
     /**
      * @brief An array of GetHub.Entiteis.UserStub objects representing users that
@@ -72,28 +72,28 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $following array
      */
-    protected $following;
+    protected $following = array();
 
     /**
      * @brief Whether the created user has set their github profile to be hireable.
      *
      * @property $isHireable boolean
      */
-    protected $isHireable;
+    protected $isHireable = false;
 
     /**
      * @brief The bio set on the user's github profile.
      *
      * @property $bio string
      */
-    protected $bio;
+    protected $bio = '';
 
     /**
      * @brief The location the user has set on their github profile
      *
      * @property $location string
      */
-    protected $location;
+    protected $location = '';
 
     /**
      * @brief The email the user has set on their profile, and assuming that the
@@ -101,6 +101,6 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @property $email string
      */
-    protected $email;
+    protected $email = '';
 
 }
