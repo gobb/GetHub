@@ -151,7 +151,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given name, false if not
      */
     public function hasFollowerByName($name) {
-        return $this->groupHasStub('followers', 'name', $name);
+        return $this->groupHasUserStub('followers', 'name', $name);
     }
 
     /**
@@ -159,7 +159,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given id, false if not
      */
     public function hasFollowerById($id) {
-        return $this->groupHasStub('followers', 'id', (int) $id);
+        return $this->groupHasUserStub('followers', 'id', (int) $id);
     }
 
     /**
@@ -168,7 +168,7 @@ class User extends \GetHub\Entities\UserStub {
      * @param $compare mixed The value of \a $stubProperty that should match for a true result
      * @return boolean
      */
-    protected function groupHasStub($groupToSearch, $stubProperty, $compare) {
+    protected function groupHasUserStub($groupToSearch, $stubProperty, $compare) {
         foreach ($this->$groupToSearch as $stub) {
             if (!$stub instanceof \GetHub\Entities\UserStub) {
                 continue;
