@@ -55,6 +55,27 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('Hi, my name is Charles.', $User->bio);
         $this->assertSame('Gitopolis', $User->location);
         $this->assertSame('cspray@gmail.com', $User->email);
+    }
 
+    /**
+     * @brief Ensures that a NullObject is returning the appropriate values
+     */
+    public function testCreatingNullUserObject() {
+        $User = new \GetHub\Entities\User(array());
+        $this->assertSame(0, $User->id);
+        $this->assertSame('', $User->name);
+        $this->assertSame('', $User->fullName);
+        $this->assertSame('', $User->gravatarId);
+        $this->assertSame('https://api.github.com/', $User->apiUrl);
+        $this->assertSame('http://github.com/blog', $User->blogUrl);
+        $this->assertSame('0000-00-00T00:00:00Z', $User->createdAt);
+        $this->assertSame(array(), $User->publicRepoStubs);
+        $this->assertSame(array(), $User->publicGistStubs);
+        $this->assertSame(array(), $User->followers);
+        $this->assertSame(array(), $User->following);
+        $this->assertFalse($User->isHireable);
+        $this->assertSame('', $User->bio);
+        $this->assertSame('', $User->location);
+        $this->assertSame('', $User->email);
     }
 }
