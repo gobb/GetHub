@@ -262,6 +262,9 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('edorian', $edorian->name);
         $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
         $this->assertSame('#edorian', $edorian->gravatarId);
+
+        $noexist = $User->getFollowerStubByName('noexist');
+        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
     }
 
 }
