@@ -145,6 +145,12 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $expectedFollowingIndex = 0;
         foreach ($following as $userFollowing) {
             $this->assertTrue($userFollowing instanceof \GetHub\Entities\UserStub, 'A following user is not a UserStub');
+            $followingData = $expectedFollowingData[$expectedFollowingIndex];
+            $this->assertSame($followingData['id'], $userFollowing->id);
+            $this->assertSame($followingData['login'], $userFollowing->name);
+            $this->assertSame($followingData['url'], $userFollowing->apiUrl);
+            $this->assertSame($followingData['gravatar_id'], $userFollowing->gravatarId);
+            $expectedFollowingIndex++;
         }
     }
 
