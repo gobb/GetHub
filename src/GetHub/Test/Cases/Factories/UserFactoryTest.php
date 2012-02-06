@@ -265,6 +265,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
 
         $noexist = $User->getFollowerStubByName('noexist');
         $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertSame(0, $noexist->id);
     }
 
 }
