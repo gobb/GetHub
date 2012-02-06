@@ -104,6 +104,45 @@ class User extends \GetHub\Entities\UserStub {
     protected $email = '';
 
     /**
+     * @brief This should be a GetHub.Entities.UserStub null object but it may be
+     * a stdClass object if a NullUserStub is not passed in \a $data during construction.
+     *
+     * @details
+     * This is not a key returned by the github API.
+     *
+     * @property $NullUserStub object
+     */
+    protected $NullUserStub;
+
+    /**
+     * @brief We are overriding the constructor here to ensure that the appropriate
+     * NullObjects are set for possible returned stubs.
+     *
+     * @param $data array Associative data to assign to this entity
+     */
+    public function __construct(array $data = array()) {
+        $this->setNullUserStub($data);
+        parent::__construct($data);
+        unset($this->objectVars['NullUserStub']);
+    }
+
+    /**
+     * @brief Will ensure that, at the very least, an object is set for the NullUserStub.
+     *
+     * @param &$data array Associative array that is supposed to be assigned to this user
+     */
+    protected function setNullUserStub(array &$data) {
+        if (\array_key_exists('NullUserStub', $data) && \is_object($data['NullUserStub'])) {
+            $this->NullUserStub = $data['NullUserStub'];
+            unset($data['NullUserStub']);
+        } else {
+            // we are doing this because we really want to make sure we return some kind of object
+            $this->NullUserStub = new \stdClass();
+            $this->NullUserStub->error = 'An expected key, NullUserStub, was not passed from the UserFactory';
+        }
+    }
+
+    /**
      * @param $name string The name of the follower to check for this user
      * @return boolean true if the user has a follower with the given name, false if not
      */
@@ -125,6 +164,9 @@ class User extends \GetHub\Entities\UserStub {
                 $stub = $follower;
                 break;
             }
+        }
+        if (!\is_object($stub)) {
+            $stub = $this->NullUserStub;
         }
         return $stub;
     }
