@@ -112,6 +112,14 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $name string The name of the follower to return the stub for
+     * @return GetHub.Entities.UserStub
+     */
+    public function getFollowerStubByName($name) {
+
+    }
+
+    /**
      * @param $id int or numeric string Represents the github user id to serach for
      * @return boolean true if the user has a follower with the given id, false if not
      */
