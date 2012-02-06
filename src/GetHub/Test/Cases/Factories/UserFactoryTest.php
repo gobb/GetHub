@@ -268,4 +268,44 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(0, $noexist->id);
     }
 
+    /**
+     * @brief Tests that we can always return a GetHub.Entities.UserStub object
+     * when we call getFollowerById().
+     */
+    public function testConvenienceFunctionGetFollowerById() {
+        $data = array(
+            'followers' => array(
+                array(
+                    'id' => 2,
+                    'login' => 'edorian',
+                    'url' => 'https://api.github.com/users/edorian',
+                    'gravatar_id' => '#edorian'
+                ),
+                array(
+                    'id' => 3,
+                    'login' => 'ircmaxell',
+                    'url' => 'https://api.github.com/users/ircmaxell',
+                    'gravatar_id' => '#ircmaxell'
+                ),
+                array(
+                    'id' => 4,
+                    'login' => 'nikic',
+                    'url' => 'https://api.github.com/users/nikic',
+                    'gravatar_id' => '#nikic'
+                )
+            )
+        );
+        $User = $this->Factory->createObject($data);
+        $three = $User->getFollowerStubById(3);
+        $this->assertTrue($three instanceof \GetHub\Entities\UserStub, 'getting 3:ircmaxell stub returned non stub object:');
+        $this->assertSame(3, $three->id);
+        $this->assertSame('ircmaxell', $three->name);
+        $this->assertSame('https://api.github.com/users/ircmaxell', $three->apiUrl);
+        $this->assertSame('#ircmaxell', $three->gravatarId);
+
+        $noexist = $User->getFollowerStubBId('0');
+        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertSame(0, $noexist->id);
+    }
+
 }
