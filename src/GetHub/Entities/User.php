@@ -103,4 +103,11 @@ class User extends \GetHub\Entities\UserStub {
      */
     protected $email = '';
 
+    /**
+     * @param $name string The name of the follower to check for this user
+     */
+    public function hasFollowerByName($name) {
+
+    }
+
 }
