@@ -121,7 +121,7 @@ class User extends \GetHub\Entities\UserStub {
      * @param $data array Associative data to assign to this entity
      */
     public function __construct(array $data = array()) {
-        $this->setNullUserStub($data);
+        $this->setNullUserStub();
         parent::__construct($data);
         $this->removeRestrictedProperties();
     }
@@ -131,17 +131,14 @@ class User extends \GetHub\Entities\UserStub {
      *
      * @param &$data array Associative array that is supposed to be assigned to this user
      */
-    protected function setNullUserStub(array &$data) {
-        if (\array_key_exists('NullUserStub', $data) && \is_object($data['NullUserStub'])) {
-            $this->NullUserStub = $data['NullUserStub'];
-            unset($data['NullUserStub']);
-        } else {
-            // we are doing this because we really want to make sure we return some kind of object
-            $this->NullUserStub = new \stdClass();
-            $this->NullUserStub->error = 'An expected key, NullUserStub, was not passed from the UserFactory';
-        }
+    protected function setNullUserStub() {
+        $this->NullUserStub = new parent(array());
     }
 
+    /**
+     * @brief Ensures that properties that shouldn't be accessed are removed from
+     * objectVars
+     */
     protected function removeRestrictedProperties() {
         unset($this->objectVars['NullUserStub']);
     }
