@@ -256,7 +256,12 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
             )
         );
         $User = $this->Factory->createObject($data);
-        $this->assertTrue($User->getFollowerStubByName('edorian') instanceof \GetHub\Entities\UserStub);
+        $edorian = $User->getFollowerStubByName('edorian');
+        $this->assertTrue($edorian instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertSame(2, $edorian->id);
+        $this->assertSame('edorian', $edorian->name);
+        $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
+        $this->assertSame('#edorian', $edorian->gravatarId);
     }
 
 }
