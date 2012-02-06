@@ -107,7 +107,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
 
@@ -151,7 +150,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
 
@@ -195,7 +193,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
         $this->assertTrue($User->hasFollowerByName('edorian'));
@@ -233,7 +230,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
         $this->assertTrue($User->hasFollowerById(2), 'Does not have follower 2');
@@ -269,7 +265,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
         $this->assertTrue($User->isFollowingById(2), 'Does not have follower 2');
@@ -305,7 +300,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
         $this->assertTrue($User->isFollowingByName('nikic'), 'Is not following nikic: ');
@@ -341,12 +335,12 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
 
         $edorian = $User->getFollowingStubByName('edorian');
         $this->assertTrue($edorian instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertFalse($edorian instanceof \GetHub\Entities\User, 'getting a User object when expecting a UserStub');
         $this->assertSame(2, $edorian->id);
         $this->assertSame('edorian', $edorian->name);
         $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
@@ -385,12 +379,12 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
         $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
         $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
-        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
 
         $User = new \GetHub\Entities\User($data);
 
         $four = $User->getFollowingStubById('4');
         $this->assertTrue($four instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertFalse($four instanceof \GetHub\Entities\User, 'Getting a User object back when expecting a stub');
         $this->assertSame(4, $four->id);
         $this->assertSame('nikic', $four->name);
         $this->assertSame('https://api.github.com/users/nikic', $four->apiUrl);
