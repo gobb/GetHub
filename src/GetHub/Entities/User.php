@@ -116,7 +116,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user has a follower with the given id, false if not
      */
     public function hasFollowerById($id) {
-        
+        return $this->hasFollowerByProperty('id', (int) $id);
     }
 
     /**
