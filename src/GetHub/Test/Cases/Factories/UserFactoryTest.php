@@ -225,7 +225,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $User = $this->Factory->createObject($data);
         $this->assertTrue($User->hasFollowerById(2));
         $this->assertTrue($User->hasFollowerById('4'));
-        $this->assertFalse($User->hasFollowerByName(5));
+        $this->assertFalse($User->hasFollowerById(5));
     }
 
 }
