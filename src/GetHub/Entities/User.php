@@ -163,6 +163,14 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $id int or numeric string Represents the gitub user id to search for
+     * @return boolean true if the user is following the github user with passed \a $id
+     */
+    public function isFollowingById($id) {
+        
+    }
+
+    /**
      * @param $groupToSearch string Property of this entity holding an array of Stubs to search
      * @param $stubProperty string Name of the stub's property to comapre to
      * @param $compare mixed The value of \a $stubProperty that should match for a true result
