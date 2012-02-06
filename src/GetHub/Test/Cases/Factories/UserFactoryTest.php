@@ -164,7 +164,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
     /**
      * @brief Testing the convenience function to see if a user has a follower.
      */
-    public function testConvenienceFunctionHasFollower() {
+    public function testConvenienceFunctionHasFollowerByName() {
         $data = array(
             'followers' => array(
                 array(
@@ -189,6 +189,8 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         );
         $User = $this->Factory->createObject($data);
         $this->assertTrue($User->hasFollowerByName('edorian'));
+        $this->assertTrue($User->hasFollowerByName('ircmaxell'));
+        $this->assertFalse($User->hasFollowerByName('notthere'));
     }
 
 }
