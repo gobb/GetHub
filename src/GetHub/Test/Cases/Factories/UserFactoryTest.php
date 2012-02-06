@@ -19,8 +19,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
      */
     public function setUp() {
         if (!isset($this->Factory)) {
-            $UserStubFactory = new \GetHub\Factories\UserStubFactory();
-            $this->Factory = new \GetHub\Factories\UserFactory($UserStubFactory);
+            $this->Factory = new \GetHub\Factories\UserFactory();
         }
     }
 
@@ -118,6 +117,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $expectedFollowerIndex = 0;
         foreach ($followers as $follower) {
             $this->assertTrue($follower instanceof \GetHub\Entities\UserStub, 'A follower is not a UserStub:');
+            $this->assertFalse($follower instanceof \GetHub\Entities\User, 'A follower is being returned as a User:');
             $followerData = $expectedFollowerData[$expectedFollowerIndex];
             $this->assertSame($followerData['id'], $follower->id);
             $this->assertSame($followerData['login'], $follower->name);
@@ -145,6 +145,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $expectedFollowingIndex = 0;
         foreach ($following as $userFollowing) {
             $this->assertTrue($userFollowing instanceof \GetHub\Entities\UserStub, 'A following user is not a UserStub');
+            $this->assertFalse($userFollowing instanceof \GetHub\Entities\User, 'A following user is being returned as a User:');
             $followingData = $expectedFollowingData[$expectedFollowingIndex];
             $this->assertSame($followingData['id'], $userFollowing->id);
             $this->assertSame($followingData['login'], $userFollowing->name);
@@ -156,7 +157,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
 
 
 
-    
+
 
 
 
