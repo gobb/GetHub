@@ -303,7 +303,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('https://api.github.com/users/ircmaxell', $three->apiUrl);
         $this->assertSame('#ircmaxell', $three->gravatarId);
 
-        $noexist = $User->getFollowerStubBId('0');
+        $noexist = $User->getFollowerStubById('0');
         $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
         $this->assertSame(0, $noexist->id);
     }
