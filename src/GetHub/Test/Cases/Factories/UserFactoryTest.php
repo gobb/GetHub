@@ -162,7 +162,8 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @brief Testing the convenience function to see if a user has a follower.
+     * @brief Testing the convenience function to see if a user has a follower for
+     * a given name.
      */
     public function testConvenienceFunctionHasFollowerByName() {
         $data = array(
@@ -191,6 +192,40 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($User->hasFollowerByName('edorian'));
         $this->assertTrue($User->hasFollowerByName('ircmaxell'));
         $this->assertFalse($User->hasFollowerByName('notthere'));
+    }
+
+    /**
+     * @brief Testing the convenience function to see if a user has a follower that
+     * has a given id.
+     *
+     */
+    public function testConvenienceFunctionHasFollowerById() {
+        $data = array(
+            'followers' => array(
+                array(
+                    'id' => 2,
+                    'login' => 'edorian',
+                    'url' => 'https://api.github.com/users/edorian',
+                    'gravatar_id' => '#edorian'
+                ),
+                array(
+                    'id' => 3,
+                    'login' => 'ircmaxell',
+                    'url' => 'https://api.github.com/users/ircmaxell',
+                    'gravatar_id' => '#ircmaxell'
+                ),
+                array(
+                    'id' => 4,
+                    'login' => 'nikic',
+                    'url' => 'https://api.github.com/users/nikic',
+                    'gravatar_id' => '#nikic'
+                )
+            )
+        );
+        $User = $this->Factory->createObject($data);
+        $this->assertTrue($User->hasFollowerById(2));
+        $this->assertTrue($User->hasFollowerById('4'));
+        $this->assertFalse($User->hasFollowerByName(5));
     }
 
 }
