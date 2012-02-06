@@ -228,4 +228,35 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($User->hasFollowerById(5), 'Does not have follower 5');
     }
 
+    /**
+     * @brief Tests that we can always return a GetHub.Entities.UserStub object
+     * when we call getFollowerByName().
+     */
+    public function testConvenienceFunctionGetFollowerByName() {
+        $data = array(
+            'followers' => array(
+                array(
+                    'id' => 2,
+                    'login' => 'edorian',
+                    'url' => 'https://api.github.com/users/edorian',
+                    'gravatar_id' => '#edorian'
+                ),
+                array(
+                    'id' => 3,
+                    'login' => 'ircmaxell',
+                    'url' => 'https://api.github.com/users/ircmaxell',
+                    'gravatar_id' => '#ircmaxell'
+                ),
+                array(
+                    'id' => 4,
+                    'login' => 'nikic',
+                    'url' => 'https://api.github.com/users/nikic',
+                    'gravatar_id' => '#nikic'
+                )
+            )
+        );
+        $User = $this->Factory->createObject($data);
+        $this->assertTrue($User->getFollowerByName('edorian') instanceof \GetHub\Entities\UserStub);
+    }
+
 }
