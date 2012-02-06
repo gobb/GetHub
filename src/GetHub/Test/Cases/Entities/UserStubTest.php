@@ -32,10 +32,9 @@ class UserStubTest extends \PHPUnit_Framework_TestCase {
      * @brief Testing to make sure that an appropriate NullObject is created
      */
     public function testNullUserStub() {
-        $gravatarId = \md5('rolltiderollsprayfireisthebombo@thisisnotsupposedtomakesense.com');
         $Stub = new \GetHub\Entities\UserStub(array());
         $this->assertSame(0, $Stub->id);
-        $this->assertSame('http://www.gravatar.com/avatar/' . $gravatarId, $Stub->getGravatarUrl());
+        $this->assertSame('http://www.gravatar.com/avatar/', $Stub->getGravatarUrl());
         $this->assertSame('', $Stub->name);
         $this->assertSame('https://api.github.com/', $Stub->apiUrl);
         $this->assertSame('http://github.com/', $Stub->getProfileUrl());
