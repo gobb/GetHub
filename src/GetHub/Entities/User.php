@@ -167,7 +167,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return boolean true if the user is following the github user with passed \a $id
      */
     public function isFollowingById($id) {
-        
+        return $this->groupHasUserStub('following', 'id', (int) $id);
     }
 
     /**
