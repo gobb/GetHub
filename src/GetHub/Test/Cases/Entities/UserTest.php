@@ -55,6 +55,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('Hi, my name is Charles.', $User->bio);
         $this->assertSame('Gitopolis', $User->location);
         $this->assertSame('cspray@gmail.com', $User->email);
+        $this->assertNull($User->NullUserStub, 'NullUserStub is returning a non-null value');
     }
 
     /**
