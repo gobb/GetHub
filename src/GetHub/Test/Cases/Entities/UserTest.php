@@ -43,5 +43,18 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(1, $User->id);
         $this->assertSame('cspray', $User->name);
         $this->assertSame('Charles Sprayberry', $User->fullName);
+        $this->assertSame('#cspray', $User->gravatarId);
+        $this->assertSame('https://api.github.com/users/cspray', $User->apiUrl);
+        $this->assertSame('http://cspray.github.com', $User->blogUrl);
+        $this->assertSame('1984-02-03T15:33:00Z', $User->createdAt);
+        $this->assertSame(array('\\GetHub\\Entities\\RepoStubs'), $User->publicRepoStubs);
+        $this->assertSame(array('\\GetHub\\Entities\\GistStubs'), $User->publicGistStubs);
+        $this->assertSame(array('followers'), $User->followers);
+        $this->assertSame(array('following'), $User->following);
+        $this->assertSame(false, $User->isHireable);
+        $this->assertSame('Hi, my name is Charles.', $User->bio);
+        $this->assertSame('Gitopolis', $User->location);
+        $this->assertSame('cspray@gmail.com', $User->email);
+
     }
 }
