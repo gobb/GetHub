@@ -62,20 +62,20 @@ class UserTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCreatingNullUserObject() {
         $User = new \GetHub\Entities\User(array());
-        $this->assertSame(0, $User->id);
-        $this->assertSame('', $User->name);
-        $this->assertSame('', $User->fullName);
-        $this->assertSame('', $User->gravatarId);
-        $this->assertSame('https://api.github.com/', $User->apiUrl);
-        $this->assertSame('http://github.com/blog', $User->blogUrl);
-        $this->assertSame('0000-00-00T00:00:00Z', $User->createdAt);
-        $this->assertSame(array(), $User->publicRepoStubs);
-        $this->assertSame(array(), $User->publicGistStubs);
-        $this->assertSame(array(), $User->followers);
-        $this->assertSame(array(), $User->following);
-        $this->assertFalse($User->isHireable);
-        $this->assertSame('', $User->bio);
-        $this->assertSame('', $User->location);
-        $this->assertSame('', $User->email);
+        $this->assertSame(0, $User->id, 'id failed:');
+        $this->assertSame('', $User->name, 'name failed:');
+        $this->assertSame('', $User->fullName, 'fullName failed:');
+        $this->assertSame('', $User->gravatarId, 'gravatarId failed:');
+        $this->assertSame('https://api.github.com/', $User->apiUrl, 'apiUrl failed:');
+        $this->assertSame('http://github.com/blog', $User->blogUrl, 'blogUrl failed:');
+        $this->assertSame('0000-00-00T00:00:00Z', $User->createdAt, 'createdAt failed:');
+        $this->assertSame(array(), $User->publicRepoStubs, 'publicRepoStubs failed:');
+        $this->assertSame(array(), $User->publicGistStubs, 'publicGistStubs failed:');
+        $this->assertSame(array(), $User->followers, 'followers failed:');
+        $this->assertSame(array(), $User->following, 'following failed:');
+        $this->assertFalse($User->isHireable, 'isHireable failed:');
+        $this->assertSame('', $User->bio, 'bio failed:');
+        $this->assertSame('', $User->location, 'location failed:');
+        $this->assertSame('', $User->email, 'email failed:');
     }
 }
