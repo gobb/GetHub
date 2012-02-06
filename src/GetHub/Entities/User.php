@@ -218,7 +218,7 @@ class User extends \GetHub\Entities\UserStub {
      * @return GetHub.Entities.UserStub
      */
     public function getFollowingStubByName($name) {
-
+        return $this->getUserStubByProperty('following', 'name', $name);
     }
 
     /**
