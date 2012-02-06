@@ -172,6 +172,28 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $id int or numeric string The id of a github user to return a stub for,
+     * if they are a follower of this user
+     * @return GetHub.Entities.UserStub
+     */
+    public function getFollowerStubById($id) {
+        $stub = null;
+        foreach ($this->followers as $follower) {
+            if (!$follower instanceof \GetHub\Entities\UserStub) {
+                continue;
+            }
+            if ($follower->id === (int) $id) {
+                $stub = $follower;
+                break;
+            }
+        }
+        if (!\is_object($stub)) {
+            $stub = $this->NullUserStub;
+        }
+        return $stub;
+    }
+
+    /**
      * @param $id int or numeric string Represents the github user id to serach for
      * @return boolean true if the user has a follower with the given id, false if not
      */
