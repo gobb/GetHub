@@ -51,7 +51,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(array('\\GetHub\\Entities\\GistStubs'), $User->publicGistStubs);
         $this->assertSame(array('followers'), $User->followers);
         $this->assertSame(array('following'), $User->following);
-        $this->assertSame(false, $User->isHireable);
+        $this->assertTrue($User->isHireable);
         $this->assertSame('Hi, my name is Charles.', $User->bio);
         $this->assertSame('Gitopolis', $User->location);
         $this->assertSame('cspray@gmail.com', $User->email);
