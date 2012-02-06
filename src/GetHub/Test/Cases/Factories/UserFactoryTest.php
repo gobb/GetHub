@@ -154,41 +154,9 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
-    
 
-    /**
-     * @brief Testing the convenience function to see if a user has a follower that
-     * has a given id.
-     *
-     */
-    public function testConvenienceFunctionHasFollowerById() {
-        $data = array(
-            'followers' => array(
-                array(
-                    'id' => 2,
-                    'login' => 'edorian',
-                    'url' => 'https://api.github.com/users/edorian',
-                    'gravatar_id' => '#edorian'
-                ),
-                array(
-                    'id' => 3,
-                    'login' => 'ircmaxell',
-                    'url' => 'https://api.github.com/users/ircmaxell',
-                    'gravatar_id' => '#ircmaxell'
-                ),
-                array(
-                    'id' => 4,
-                    'login' => 'nikic',
-                    'url' => 'https://api.github.com/users/nikic',
-                    'gravatar_id' => '#nikic'
-                )
-            )
-        );
-        $User = $this->Factory->createObject($data);
-        $this->assertTrue($User->hasFollowerById(2), 'Does not have follower 2');
-        $this->assertTrue($User->hasFollowerById('4'), 'Does not have follower 4');
-        $this->assertFalse($User->hasFollowerById(5), 'Does not have follower 5');
-    }
+
+    
 
 
 

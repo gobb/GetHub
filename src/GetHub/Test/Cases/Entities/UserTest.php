@@ -203,4 +203,42 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($User->hasFollowerByName('notthere'));
     }
 
+
+    /**
+     * @brief Testing the convenience function to see if a user has a follower that
+     * has a given id.
+     *
+     */
+    public function testConvenienceFunctionHasFollowerById() {
+        $edorianData = array(
+            'id' => 2,
+            'name' => 'edorian',
+            'apiUrl' => 'https://api.github.com/users/edorian',
+            'gravatarId' => '#edorian'
+        );
+        $ircmaxellData = array(
+            'id' => 3,
+            'name' => 'ircmaxell',
+            'apiUrl' => 'https://api.github.com/users/ircmaxell',
+            'gravatarId' => '#ircmaxell'
+        );
+        $nikicData = array(
+            'id' => 4,
+            'name' => 'nikic',
+            'apiUrl' => 'https://api.github.com/users/nikic',
+            'gravatarId' => '#nikic'
+        );
+
+        $data['followers'] = array();
+        $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
+        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
+
+        $User = new \GetHub\Entities\User($data);
+        $this->assertTrue($User->hasFollowerById(2), 'Does not have follower 2');
+        $this->assertTrue($User->hasFollowerById('4'), 'Does not have follower 4');
+        $this->assertFalse($User->hasFollowerById(5), 'Does not have follower 5');
+    }
+
 }
