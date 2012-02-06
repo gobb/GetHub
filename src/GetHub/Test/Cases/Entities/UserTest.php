@@ -357,4 +357,48 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(0, $noexist->id);
     }
 
+    /**
+     * @brief Will ensure that a GetHub.Entities.UserStub is always returned from
+     * GetHub.Entities.User::getFollowingStubById()
+     */
+    public function testConvenienceFunctionGetFollowingById() {
+        $edorianData = array(
+            'id' => 2,
+            'name' => 'edorian',
+            'apiUrl' => 'https://api.github.com/users/edorian',
+            'gravatarId' => '#edorian'
+        );
+        $ircmaxellData = array(
+            'id' => 3,
+            'name' => 'ircmaxell',
+            'apiUrl' => 'https://api.github.com/users/ircmaxell',
+            'gravatarId' => '#ircmaxell'
+        );
+        $nikicData = array(
+            'id' => 4,
+            'name' => 'nikic',
+            'apiUrl' => 'https://api.github.com/users/nikic',
+            'gravatarId' => '#nikic'
+        );
+
+        $data['following'] = array();
+        $data['following'][] = new \GetHub\Entities\UserStub($edorianData);
+        $data['following'][] = new \GetHub\Entities\UserStub($ircmaxellData);
+        $data['following'][] = new \GetHub\Entities\UserStub($nikicData);
+        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
+
+        $User = new \GetHub\Entities\User($data);
+
+        $four = $User->getFollowingStubById('4');
+        $this->assertTrue($four instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertSame(4, $four->id);
+        $this->assertSame('nikic', $four->name);
+        $this->assertSame('https://api.github.com/users/nikic', $four->apiUrl);
+        $this->assertSame('#nikic', $four->gravatarId);
+
+        $noexist = $User->getFollowingStubById(5);
+        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertSame(0, $noexist->id);
+    }
+
 }
