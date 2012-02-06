@@ -163,6 +163,14 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $name string The name of the user to see if this user is following
+     * @return boolean true if this user is following the user with \a $name or false if they are not
+     */
+    public function isFollowingByName($name) {
+
+    }
+
+    /**
      * @param $id int or numeric string Represents the gitub user id to search for
      * @return boolean true if the user is following the github user with passed \a $id
      */
