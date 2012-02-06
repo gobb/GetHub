@@ -214,6 +214,14 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $name string The name of stub to retrieve for a user this user is following.
+     * @return GetHub.Entities.UserStub
+     */
+    public function getFollowingStubByName($name) {
+
+    }
+
+    /**
      * @param $groupToGet string The class property, generally followers or following,
      * to search for \a $stubProperty that match \a $compare
      * @param $stubProperty string The property of the stub to check to \a $compare
