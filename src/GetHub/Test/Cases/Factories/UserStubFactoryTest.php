@@ -47,12 +47,11 @@ class UserStubFactoryTest extends \PHPUnit_Framework_TestCase {
      */
     public function testUserStubFactoryCreatingNullObject() {
         $Stub = $this->Factory->createObject();
-        $gravatarHash = \md5();
         $this->assertTrue($Stub instanceof \GetHub\Entities\UserStub);
         $this->assertSame(0, $Stub->id);
         $this->assertSame('', $Stub->name);
         $this->assertSame('', $Stub->gravatarId);
-        $this->assertSame('https://api.github.com', $Stub->apiUrl);
+        $this->assertSame('https://api.github.com/', $Stub->apiUrl);
     }
 
 }
