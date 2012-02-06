@@ -222,6 +222,14 @@ class User extends \GetHub\Entities\UserStub {
     }
 
     /**
+     * @param $id int or numeric string The int of a github user to return a stub for
+     * @return GetHub.Entities.UserStub
+     */
+    public function getFollowingStubById($id) {
+
+    }
+
+    /**
      * @param $groupToGet string The class property, generally followers or following,
      * to search for \a $stubProperty that match \a $compare
      * @param $stubProperty string The property of the stub to check to \a $compare
