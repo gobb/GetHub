@@ -11,14 +11,6 @@ namespace GetHub\Factories;
 class UserFactory extends \GetHub\Factories\UserStubFactory {
 
     /**
-     * @brief The Factory used to create followers and the people this user is
-     * following.
-     *
-     * @property $UserStubFactory GetHub.Factories.UserStubFactory
-     */
-    protected $UserStubFactory;
-
-    /**
      * @brief An associative array mapping the remaining properties not set by
      * GetHub.Factories.UserStubFactory
      *
@@ -38,13 +30,6 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
         'followers' => 'followers',
         'NullUserStub' => 'NullUserStub'
     );
-
-    /**
-     * @param $UserStubFactory GetHub.Factories.UserStubFactory
-     */
-    public function __construct(\GetHub\Factories\UserStubFactory $UserStubFactory) {
-        $this->UserStubFactory = $UserStubFactory;
-    }
 
     /**
      * @brief We are overriding this object so that we may turn repos, gists, following
@@ -95,7 +80,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      * @return array with NullUserStub key added
      */
     protected function addNullUserStub(array $data) {
-        $data['NullUserStub'] = $this->UserStubFactory->createObject();
+        $data['NullUserStub'] = '';
         return $data;
     }
 
@@ -109,7 +94,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
         $stubs = array();
         foreach ($stubData as $stub) {
             if (\is_array($stub)) {
-                $stubs[] = $this->UserStubFactory->createObject($stub);
+                $stubs[] = '';
             }
         }
         return $stubs;
@@ -124,8 +109,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      */
     protected function getApiMap() {
         $userStubMap = parent::getApiMap();
-        $mergedMap = \array_merge($userStubMap, $this->apiMap);
-        return $mergedMap;
+        return \array_merge($userStubMap, $this->apiMap);
     }
 
     /**
