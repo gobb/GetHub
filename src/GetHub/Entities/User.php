@@ -107,7 +107,15 @@ class User extends \GetHub\Entities\UserStub {
      * @param $name string The name of the follower to check for this user
      */
     public function hasFollowerByName($name) {
-
+        foreach ($this->followers as $follower) {
+            if (!$follower instanceof \GetHub\Entities\UserStub) {
+                continue;
+            }
+            if ($follower->name === $name) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
