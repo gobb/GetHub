@@ -36,6 +36,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
         'email' => 'email',
         'following' => 'following',
         'followers' => 'followers',
+        'NullUserStub' => 'NullUserStub'
     );
 
     /**
@@ -55,6 +56,7 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
     public function createObject(array $data = array()) {
         $data = $this->convertFollowersToUserStubs($data);
         $data = $this->convertFollowingToUserStubs($data);
+        $data = $this->addNullUserStub($data);
         return parent::createObject($data);
     }
 
@@ -83,6 +85,17 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
         $following = (\array_key_exists('following', $data)) ? $data['following'] : array();
         $followingStubs = $this->getUserStubs($following);
         $data['following'] = $followingStubs;
+        return $data;
+    }
+
+    /**
+     * @brief Ensures that we get a NullObject for user stub calls in GetHub.Entities.User
+     *
+     * @param $data array response from github API
+     * @return array with NullUserStub key added
+     */
+    protected function addNullUserStub(array $data) {
+        $data['NullUserStub'] = $this->UserStubFactory->createObject();
         return $data;
     }
 
