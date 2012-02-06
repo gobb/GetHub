@@ -84,7 +84,6 @@ class UserTest extends \PHPUnit_Framework_TestCase {
      * when we call getFollowerById().
      */
     public function testConvenienceFunctionGetFollowerById() {
-
         $edorianData = array(
             'id' => 2,
             'name' => 'edorian',
@@ -123,4 +122,49 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
         $this->assertSame(0, $noexist->id);
     }
+
+    /**
+     * @brief Tests that we can always return a GetHub.Entities.UserStub object
+     * when we call getFollowerByName().
+     */
+    public function testConvenienceFunctionGetFollowerByName() {
+        $edorianData = array(
+            'id' => 2,
+            'name' => 'edorian',
+            'apiUrl' => 'https://api.github.com/users/edorian',
+            'gravatarId' => '#edorian'
+        );
+        $ircmaxellData = array(
+            'id' => 3,
+            'name' => 'ircmaxell',
+            'apiUrl' => 'https://api.github.com/users/ircmaxell',
+            'gravatarId' => '#ircmaxell'
+        );
+        $nikicData = array(
+            'id' => 4,
+            'name' => 'nikic',
+            'apiUrl' => 'https://api.github.com/users/nikic',
+            'gravatarId' => '#nikic'
+        );
+
+        $data['followers'] = array();
+        $data['followers'][] = new \GetHub\Entities\UserStub($edorianData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($ircmaxellData);
+        $data['followers'][] = new \GetHub\Entities\UserStub($nikicData);
+        $data['NullUserStub'] = new \GetHub\Entities\UserStub(array());
+
+        $User = new \GetHub\Entities\User($data);
+
+        $edorian = $User->getFollowerStubByName('edorian');
+        $this->assertTrue($edorian instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertSame(2, $edorian->id);
+        $this->assertSame('edorian', $edorian->name);
+        $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
+        $this->assertSame('#edorian', $edorian->gravatarId);
+
+        $noexist = $User->getFollowerStubByName('noexist');
+        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertSame(0, $noexist->id);
+    }
+
 }
