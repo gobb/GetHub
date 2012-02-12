@@ -8,13 +8,13 @@
 
 namespace GetHub\Factories;
 
-class UserStubFactory extends \GetHub\Factory {
+class UserStubFactory extends \DataFoundry\MapFactory {
 
     /**
      * @return array Associative array mapping expected github API keys to their
      * appropriate domain keys for a GetHub.Entities.UserStub object.
      */
-    protected function getApiMap() {
+    protected function getPropertyMap() {
         return array(
             'id' => 'id',
             'login' => 'name',

@@ -97,8 +97,8 @@ class UserFactory extends \GetHub\Factories\UserStubFactory {
      *
      * @return array Associative holding api -> domain key mappings
      */
-    protected function getApiMap() {
-        $userStubMap = parent::getApiMap();
+    protected function getPropertyMap() {
+        $userStubMap = parent::getPropertyMap();
         return \array_merge($userStubMap, $this->apiMap);
     }
 
