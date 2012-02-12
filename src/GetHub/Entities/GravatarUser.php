@@ -38,8 +38,14 @@ class GravatarUser extends \DataFoundry\Entity {
         return $url;
     }
 
+    /**
+     * @brief If you override this function be sure to add to the array that is
+     * returned here and not simply provide a new array of restrictd properties.
+     *
+     * @return array
+     */
     protected function getRestrictedProperties() {
-        return array();
+        return array('gravatarUrl');
     }
 
 }
