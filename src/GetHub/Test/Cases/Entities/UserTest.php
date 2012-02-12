@@ -112,14 +112,15 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $User = new \GetHub\Entities\User($data);
 
         $three = $User->getFollowerStubById(3);
-        $this->assertTrue($three instanceof \GetHub\Entities\UserStub, 'getting 3:ircmaxell stub returned non stub object:');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $three);
+        $this->assertNotInstanceOf('\\GetHub\\Entities\\User', $three);
         $this->assertSame(3, $three->id);
         $this->assertSame('ircmaxell', $three->name);
         $this->assertSame('https://api.github.com/users/ircmaxell', $three->apiUrl);
         $this->assertSame('#ircmaxell', $three->gravatarId);
 
         $noexist = $User->getFollowerStubById('0');
-        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $noexist);
         $this->assertSame(0, $noexist->id);
     }
 
@@ -155,14 +156,15 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $User = new \GetHub\Entities\User($data);
 
         $edorian = $User->getFollowerStubByName('edorian');
-        $this->assertTrue($edorian instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $edorian);
+        $this->assertNotInstanceOf('\\GetHub\\Entities\\User', $edorian);
         $this->assertSame(2, $edorian->id);
         $this->assertSame('edorian', $edorian->name);
         $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
         $this->assertSame('#edorian', $edorian->gravatarId);
 
         $noexist = $User->getFollowerStubByName('noexist');
-        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertTrue('\\GetHub\\Entities\\UserStub', $noexist);
         $this->assertSame(0, $noexist->id);
     }
 
@@ -340,15 +342,15 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $User = new \GetHub\Entities\User($data);
 
         $edorian = $User->getFollowingStubByName('edorian');
-        $this->assertTrue($edorian instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
-        $this->assertFalse($edorian instanceof \GetHub\Entities\User, 'getting a User object when expecting a UserStub');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $edorian);
+        $this->assertNotInstanceOf('\\GetHub\\Entities\\User', $edorian);
         $this->assertSame(2, $edorian->id);
         $this->assertSame('edorian', $edorian->name);
         $this->assertSame('https://api.github.com/users/edorian', $edorian->apiUrl);
         $this->assertSame('#edorian', $edorian->gravatarId);
 
         $noexist = $User->getFollowingStubByName('noexist');
-        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $noexist);
         $this->assertSame(0, $noexist->id);
     }
 
@@ -384,15 +386,15 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $User = new \GetHub\Entities\User($data);
 
         $four = $User->getFollowingStubById('4');
-        $this->assertTrue($four instanceof \GetHub\Entities\UserStub, 'getting edorian stub returned non stub object:');
-        $this->assertFalse($four instanceof \GetHub\Entities\User, 'Getting a User object back when expecting a stub');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $four);
+        $this->assertNotInstanceOf('\\GetHub\\Entities\\User', $four);
         $this->assertSame(4, $four->id);
         $this->assertSame('nikic', $four->name);
         $this->assertSame('https://api.github.com/users/nikic', $four->apiUrl);
         $this->assertSame('#nikic', $four->gravatarId);
 
         $noexist = $User->getFollowingStubById(5);
-        $this->assertTrue($noexist instanceof \GetHub\Entities\UserStub, 'getting noexist stub returned non stub object:');
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $noexist);
         $this->assertSame(0, $noexist->id);
     }
 
