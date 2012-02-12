@@ -56,6 +56,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('Gitopolis', $User->location);
         $this->assertSame('cspray@gmail.com', $User->email);
         $this->assertNull($User->NullUserStub, 'NullUserStub is returning a non-null value');
+        $this->assertNull($User->gravatarUrl, 'gravatarUrl is returning a non-null value');
     }
 
     /**
@@ -164,7 +165,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('#edorian', $edorian->gravatarId);
 
         $noexist = $User->getFollowerStubByName('noexist');
-        $this->assertTrue('\\GetHub\\Entities\\UserStub', $noexist);
+        $this->assertInstanceOf('\\GetHub\\Entities\\UserStub', $noexist);
         $this->assertSame(0, $noexist->id);
     }
 
