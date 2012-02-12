@@ -19,7 +19,7 @@ class GravatarUserTest extends \PHPUnit_Framework_TestCase {
         );
         $GravatarUser = new \GetHub\Entities\GravatarUser($data);
         $this->assertSame('http://www.gravatar.com/avatar/#', $GravatarUser->getGravatarUrl());
-        $this->assertFalse(isset($Entity->gravatarUrl));
+        $this->assertFalse(isset($GravatarUser->gravatarUrl));
     }
 
     /**
