@@ -26,11 +26,6 @@ class GravatarUser extends \DataFoundry\Entity {
      */
     protected $gravatarUrl = 'http://www.gravatar.com/avatar/';
 
-    public function __construct(array $data) {
-        parent::__construct($data);
-        unset($this->objectVars['gravatarUrl']);
-    }
-
     /**
      * @param $imgExtension boolean Whether or not to include a .jpg extension on image
      * @return string The URL to retrieve a user's gravatar
