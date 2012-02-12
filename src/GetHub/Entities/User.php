@@ -127,15 +127,20 @@ class User extends \GetHub\Entities\UserStub {
 
     /**
      * @brief Will ensure that, at the very least, an object is set for the NullUserStub.
-     *
-     * @param &$data array Associative array that is supposed to be assigned to this user
      */
     protected function setNullUserStub() {
         $this->NullUserStub = new parent(array());
     }
 
+    /**
+     * @brief Ensures that NullUserStub is added to the list of restricted properties.
+     *
+     * @return array Numerically index holding properties to not allow access
+     */
     protected function getRestrictedProperties() {
-        return array('NullUserStub');
+        $restrictions = parent::getRestrictedProperties();
+        $restrictions[] = 'NullUserStub';
+        return $restrictions;
     }
 
     /**
