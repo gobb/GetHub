@@ -7,4 +7,5 @@ defined('GETHUB_ROOT') or define('GETHUB_ROOT', \dirname(\dirname(\dirname(__DIR
 include \GETHUB_ROOT . '/src/GetHub/ClassLoader.php';
 $ClassLoader = new \GetHub\ClassLoader();
 $ClassLoader->registerNamespaceDirectory('GetHub', \GETHUB_ROOT . '/src');
+$ClassLoader->registerNamespaceDirectory('DataFoundry', \GETHUB_ROOT . '/libs/DataFoundry/src');
 \spl_autoload_register(array($ClassLoader, 'load'));
