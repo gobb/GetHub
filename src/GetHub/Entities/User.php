@@ -123,7 +123,6 @@ class User extends \GetHub\Entities\UserStub {
     public function __construct(array $data = array()) {
         $this->setNullUserStub();
         parent::__construct($data);
-        $this->removeRestrictedProperties();
     }
 
     /**
@@ -135,12 +134,8 @@ class User extends \GetHub\Entities\UserStub {
         $this->NullUserStub = new parent(array());
     }
 
-    /**
-     * @brief Ensures that properties that shouldn't be accessed are removed from
-     * objectVars
-     */
-    protected function removeRestrictedProperties() {
-        unset($this->objectVars['NullUserStub']);
+    protected function getRestrictedProperties() {
+        return array('NullUserStub');
     }
 
     /**

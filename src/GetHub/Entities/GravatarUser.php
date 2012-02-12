@@ -7,7 +7,7 @@
 
 namespace GetHub\Entities;
 
-class GravatarUser extends \GetHub\Entity {
+class GravatarUser extends \DataFoundry\Entity {
 
     /**
      * @brief The hash for the user's gravatar
@@ -41,6 +41,10 @@ class GravatarUser extends \GetHub\Entity {
             $url .= '.jpg';
         }
         return $url;
+    }
+
+    protected function getRestrictedProperties() {
+        return array();
     }
 
 }
