@@ -66,7 +66,11 @@ class Bootstrap {
     }
 
     protected function setAutoLoader() {
-        $this->ClassLoader->registerNamespaceDirectory('GetHub', __DIR__);
+        $getHubRoot = __DIR__;
+        $libsRoot = \dirname(\dirname($getHubRoot)) . '/libs';
+        $dataFoundryRoot = $libsRoot . '/DataFoundry/src';
+        $this->ClassLoader->registerNamespaceDirectory('GetHub', $getHubRoot);
+        $this->ClassLoader->registerNamespaceDirectory('DataFoundry', $dataFoundryRoot);
         \spl_autoload_register(array($this->ClassLoader, 'load'));
     }
 
