@@ -399,4 +399,22 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame(0, $noexist->id);
     }
 
+    /**
+     * @brief A test to assure that we are only creating 1 null UserStub per
+     * request.
+     */
+    public function testMultipleUsersGetSameNullStub() {
+        $User1 = new \GetHub\Entities\User(array());
+        $User2 = new \GetHub\Entities\User(array());
+        $User3 = new \GetHub\Entities\User(array());
+
+        $User1Follower = $User1->getFollowerStubById(0);
+        $User2Follower = $User2->getFollowerStubById(0);
+        $User3Follower = $User3->getFollowerStubById(1);
+
+        $this->assertSame($User1Follower, $User3Follower);
+        $this->assertSame($User1Follower, $User2Follower);
+        $this->assertSame($User2Follower, $User3Follower);
+    }
+
 }
