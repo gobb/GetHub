@@ -108,11 +108,14 @@ class User extends \GetHub\Entities\UserStub {
      * a stdClass object if a NullUserStub is not passed in \a $data during construction.
      *
      * @details
-     * This is not a key returned by the github API.
+     * This is not a key returned by the github API.  Also, we are making this static
+     * to ensure that we only hae to create 1 null UserStub for every User object
+     * created.  Without the static keyword on this property each User object created
+     * per request will create an additional UserStub as well.
      *
      * @property $NullUserStub object
      */
-    protected $NullUserStub;
+    protected static $NullUserStub;
 
     /**
      * @brief We are overriding the constructor here to ensure that the appropriate
@@ -129,7 +132,9 @@ class User extends \GetHub\Entities\UserStub {
      * @brief Will ensure that, at the very least, an object is set for the NullUserStub.
      */
     protected function setNullUserStub() {
-        $this->NullUserStub = new parent(array());
+        if (!isset(self::$NullUserStub)) {
+            self::$NullUserStub = new parent(array());
+        }
     }
 
     /**
@@ -244,7 +249,7 @@ class User extends \GetHub\Entities\UserStub {
             }
         }
         if (!\is_object($stub)) {
-            $stub = $this->NullUserStub;
+            $stub = self::$NullUserStub;
         }
         return $stub;
     }
